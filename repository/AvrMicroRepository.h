@@ -1,7 +1,8 @@
 #pragma once
 #include "stdint.h"
+#include "..\interfaces\InterfaceSerialRepository.h"
 
-class AvrMicroRepository
+class AvrMicroRepository : public InterfaceSerialRepository
 {
 public:
 

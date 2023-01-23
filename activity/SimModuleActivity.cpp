@@ -3,7 +3,7 @@
 
 
 
-SimModuleActivity::SimModuleActivity(DigitalPort** ports, uint8_t portsNumber) : DeviceActivity(ports, portsNumber) {
+SimModuleActivity::SimModuleActivity(DigitalPort** ports, uint8_t portsNumber) {
 }
 
 SimModuleActivity::SimModuleActivity() {

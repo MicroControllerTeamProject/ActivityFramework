@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <string.h>
 
-class SimModuleActivity : public DeviceActivity
+class SimModuleActivity 
 {
 public:
 	SimModuleActivity(DigitalPort** ports, uint8_t portsNumber);
