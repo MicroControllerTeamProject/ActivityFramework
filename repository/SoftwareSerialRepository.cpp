@@ -3,7 +3,7 @@
 
 SoftwareSerial* softwareSerial = nullptr;
 
-SoftwareSerialRepository::SoftwareSerialRepository(uint8_t rx, uint8_t tx, bool inv_logic) {
+SoftwareSerialRepository::SoftwareSerialRepository(uint8_t rx, uint8_t tx, bool inv_logic = false) {
 	this->_rxPin = rx;
 	this->_txPin = tx;
 	this->invers_logic = inv_logic;
@@ -30,6 +30,10 @@ char* SoftwareSerialRepository::readString_m() {
 	return charsBufferByReference;
 }
 
+void SoftwareSerialRepository::clearBuffer_m()
+{
+}
+
 //void SoftwareSerialRepository::print_m(const char* data,bool isNewLine = false)
 //{
 //	if (this->softwareSerial != nullptr)
@@ -38,19 +42,33 @@ char* SoftwareSerialRepository::readString_m() {
 //	}
 //}
 
-void SoftwareSerialRepository::print_m(float data)
-{
-	
-		softwareSerial->print(data);
+//void SoftwareSerialRepository::print_m(float data, bool isNewLine = false)
+//{
+//	
+//		softwareSerial->print(data);
+//
+//}
 
+void SoftwareSerialRepository::print_m(int data, bool isNewLine)
+{
 }
 
-void SoftwareSerialRepository::println(const char* data)
+void SoftwareSerialRepository::print_m(uint8_t data, bool isNewLine)
 {
+}
+
+void SoftwareSerialRepository::print_m(const char* data, bool isNewLine = false)
+{
+	if (isNewLine) {
 		softwareSerial->println(data);
+	}
+	else {
+		softwareSerial->print(data);
+	}
+
 }
 
-void SoftwareSerialRepository::println(float data)
+void SoftwareSerialRepository::print_m(float data, bool isNewLine = false)
 {
 		softwareSerial->println(data);
 }

@@ -118,6 +118,7 @@ char* AvrMicroRepository::readString_m() {
 	return charsBufferByReference;
 }
 
+
 void AvrMicroRepository::clearBuffer_m() {
 	delay(100);
 	while (Serial.available() > 0) {
