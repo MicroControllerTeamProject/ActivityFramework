@@ -2,17 +2,34 @@
 #include "DeviceActivity.h"
 #include <stdint.h>
 #include <string.h>
+#include "..\objectsSensor\SimModuleDevice.h"
+#include "..\interfaces\InterfaceSerialRepository.h"
+#include "..\interfaces\InterfaceMicroRepository.h"
 
-class SimModuleActivity 
+
+class SimModuleActivity : public DeviceActivity
 {
 public:
-	SimModuleActivity(DigitalPort** ports, uint8_t portsNumber);
+	SimModuleActivity(InterfaceSerialRepository& simModuleRepository, InterfaceMicroRepository& avrMicroRepository, SimModuleDevice** listOfSimModuleDevice, uint8_t simModuleDevicesNumber);
 	SimModuleActivity();
-	bool makeCall(AvrMicroRepository& avrMicroRepository);
-	/*void makeCall(AvrMicroRepository& avrMicroRepository);*/
-	void setPrefixAndphoneNumber(char* _prefixAndphoneNumber);
-	void setBaud(long unsigned _baud);
+	bool makeCall(char* deviceUId);
+	void setIsDisableSms(bool isSmsDisabled);
+	bool getIsDisableSms();
+	void setIsCallDisabled(bool isCallDisabled);
+	bool getIsCallDisabled();
+	void setIsInSleepMode(bool isInSleepMode);
+	bool getIsInSleepMode(bool isInSleepMode);
+	void setIsDeviceTurnedOff(bool isTurnedOff, char* deviceUid);
+	bool getIsDeviceTurnedOff();
+	uint8_t _simModuleDevicesNumber = 0;
+	SimModuleDevice** _listOfSimModuleDevice = nullptr;
+	InterfaceSerialRepository* _simModuleRepository = nullptr;
+	InterfaceMicroRepository* _avrMicroRepository = nullptr;
 private:
+	bool _isSmsDisabled = false;
+	bool _isCallDisable = false;
+	bool _isTurnedOff = false;
+	bool _isInSleepMode = false;
 	char* _prefixAndphoneNumber;
 	long unsigned _baud;
 };

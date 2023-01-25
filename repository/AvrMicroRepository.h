@@ -16,6 +16,24 @@ public:
 
 	virtual uint8_t digitalReadm(uint8_t analogPin);
 
+	virtual void digitalWrite_m(uint8_t analogPin,uint8_t value);
+
+	virtual void pinMode_m(uint8_t pin, uint8_t mode);
+
+	virtual void delaym(unsigned long delayTime);
+
+	virtual int getFreeRam();
+
+	virtual void free_m(void* _ptr);
+
+	virtual void tone_m(unsigned int pin, unsigned int frequency, unsigned long duration = 0UL);
+
+	virtual void notone_m(uint8_t pin);
+
+
+
+#pragma region SERIALZONE -------------------------------------------
+
 	virtual void print_m(const char* data, bool isNewLine = false);
 
 	virtual void print_m(float data, bool isNewLine = false);
@@ -34,17 +52,9 @@ public:
 
 	virtual int read();
 
-	virtual void pinMode_m(uint8_t pin, uint8_t mode);
+#pragma endregion InterfaceSerialRepository -------------------------------------------------
 
-	virtual void delaym(unsigned long delayTime);
-
-	virtual int getFreeRam();
-
-	virtual void free_m(void* _ptr);
-
-	virtual void tone_m(unsigned int pin,unsigned int frequency,unsigned long duration = 0UL);
-
-	virtual void notone_m(uint8_t pin);
+	
 	
 private:
 

@@ -36,6 +36,11 @@ uint8_t AvrMicroRepository::digitalReadm(uint8_t analogPin) {
 	return digitalRead(analogPin);
 }
 
+void AvrMicroRepository::digitalWrite_m(uint8_t analogPin, uint8_t value)
+{
+	 digitalWrite(analogPin,value);
+}
+
 void AvrMicroRepository::print_m(const char* data,bool isNewLine = false)
 {
 	Serial.print(data);
