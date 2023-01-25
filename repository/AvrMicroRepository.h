@@ -2,6 +2,7 @@
 #include "stdint.h"
 #include "..\interfaces\InterfaceSerialRepository.h"
 
+
 class AvrMicroRepository : public InterfaceSerialRepository
 {
 public:

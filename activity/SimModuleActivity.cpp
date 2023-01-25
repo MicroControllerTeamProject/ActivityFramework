@@ -1,12 +1,17 @@
 #include "SimModuleActivity.h"
 
+#ifdef _DEBUG
+#include <Arduino.h>
+#endif
 
 SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleRepository, 
-	InterfaceMicroRepository& avrMicroRepository, SimModuleDevice** listOfSimModuleDevice, 
+	AvrMicroRepository& avrMicroRepository, SimModuleDevice** listOfSimModuleDevice, 
 	uint8_t simModuleDevicesNumber) : DeviceActivity((AvrMicroRepository&)avrMicroRepository,(DigitalPortSensor**)listOfSimModuleDevice, simModuleDevicesNumber) {
 	this->_avrMicroRepository = &avrMicroRepository;
 	this->_simModuleRepository = &simModuleRepository;
 	this->_listOfSimModuleDevice = listOfSimModuleDevice;
+
+	
 }
 
 SimModuleActivity::SimModuleActivity() {

@@ -2,6 +2,7 @@
 class InterfaceMicroRepository
 {
 public:
+	~InterfaceMicroRepository() {}
 
 	virtual void analogReferencem(uint8_t mode) = 0;
 

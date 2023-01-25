@@ -10,6 +10,7 @@ DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, DigitalPo
 	this->avrMicroRepository = &avrMicroRepository;
 	this->digitalPortSensors = digitalPortSensors;
 	this->_digitalPortSensorNumber = digitalPortSensorsNumber;
+
 	initializeDigitalPorts();
 }
 

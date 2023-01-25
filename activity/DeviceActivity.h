@@ -32,11 +32,11 @@ public:
 	/*AnalogPort** analogPort;*/
 	
 	/*uint8_t _analogPortsNumber = 0;*/
-	char _lastAlarmDescription[10];
+	/*char _lastAlarmDescription[10];*/
 	/*String lastAlarmDescription = "";
 	String lastErrorDescription = "";*/
-	char _lastAlarmCode;
-	char _lastErrorCode;
+	//char _lastAlarmCode = {};
+	//char _lastErrorCode = {};
 
 	//virtual float getUnitOfMisureValue(String portName);
 	//virtual  float  getCustomMisureValue();
@@ -59,8 +59,8 @@ protected:
 	/*bool isThereAnyAnalogPortOnAlarm();*/
 	bool isDigitalPortOnAlarm(char* portName);
 	bool isAnalogPortOnAlarm(char* portName);
-	DigitalPortSensor** digitalPortSensors;
-	AnalogPortSensor** analogPortSensors;
+	DigitalPortSensor** digitalPortSensors = nullptr;
+	AnalogPortSensor** analogPortSensors = nullptr;
 	uint8_t _analogPortsSensorNumber = 0;
 	uint8_t _digitalPortsNumber = 0;
 	uint8_t _digitalPortSensorNumber = 0;

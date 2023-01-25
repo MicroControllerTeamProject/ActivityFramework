@@ -10,7 +10,7 @@
 class SimModuleActivity : public DeviceActivity
 {
 public:
-	SimModuleActivity(InterfaceSerialRepository& simModuleRepository, InterfaceMicroRepository& avrMicroRepository, SimModuleDevice** listOfSimModuleDevice, uint8_t simModuleDevicesNumber);
+	SimModuleActivity(InterfaceSerialRepository& simModuleRepository, AvrMicroRepository& avrMicroRepository, SimModuleDevice** listOfSimModuleDevice, uint8_t simModuleDevicesNumber);
 	SimModuleActivity();
 	bool makeCall(char* deviceUId);
 	void setIsDisableSms(bool isSmsDisabled);
@@ -24,7 +24,7 @@ public:
 	uint8_t _simModuleDevicesNumber = 0;
 	SimModuleDevice** _listOfSimModuleDevice = nullptr;
 	InterfaceSerialRepository* _simModuleRepository = nullptr;
-	InterfaceMicroRepository* _avrMicroRepository = nullptr;
+	AvrMicroRepository* _avrMicroRepository = nullptr;
 private:
 	bool _isSmsDisabled = false;
 	bool _isCallDisable = false;
