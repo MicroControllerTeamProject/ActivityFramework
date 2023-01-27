@@ -13,7 +13,7 @@ public:
 	SimModuleActivity(InterfaceSerialRepository& simModuleRepository, AvrMicroRepository& avrMicroRepository, SimModuleDevice** listOfSimModuleDevice, uint8_t simModuleDevicesNumber);
 	SimModuleActivity();
 	bool makeCall(char* deviceUId);
-	bool makeCall(SimModuleDevice* SimModuleDevice);
+	char* makeCall(SimModuleDevice* SimModuleDevice);
 	void setIsDisableSms(bool isSmsDisabled);
 	bool getIsDisableSms();
 	void setIsCallDisabled(bool isCallDisabled);

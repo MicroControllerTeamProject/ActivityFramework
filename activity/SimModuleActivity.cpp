@@ -111,9 +111,9 @@ bool SimModuleActivity::makeCall(char* deviceUId) {
 	return returnValue;
 }
 
-bool SimModuleActivity::makeCall(SimModuleDevice* simModuleDevice)
+char* SimModuleActivity::makeCall(SimModuleDevice* simModuleDevice)
 {
-	bool returnValue = false;
+	char* returnValue = "XXX";
 	char* bufferResponse;
 	this->_simModuleRepository->begin_m(simModuleDevice->getBaud());
 	this->_simModuleRepository->print_m("AT");
@@ -127,26 +127,27 @@ bool SimModuleActivity::makeCall(SimModuleDevice* simModuleDevice)
 	if (this->_simModuleRepository->serial_available())
 	{
 		bufferResponse = this->_simModuleRepository->readString_m();
-
-#ifdef _DEBUG
-		Serial.println(bufferResponse);
-#endif
-		char* findInResponse;
-		/*findInResponse = strstr(bufferResponse, "ERROR");
-		if (findInResponse != NULL)
-		{
-			this->setLastErrorCode('E');
-		}
-		findInResponse = strstr(bufferResponse, "DIALTONE");
-		if (findInResponse != NULL)
-		{
-			this->setLastErrorCode('D');
-		}*/
-		findInResponse = strstr(bufferResponse, "OK");
-		if (findInResponse != NULL)
-		{
-			returnValue = true;
-		}
+		strcpy(returnValue, bufferResponse);
+		
+//#ifdef _DEBUG
+//		Serial.println(bufferResponse);
+//#endif
+		//char* findInResponse;
+		///*findInResponse = strstr(bufferResponse, "ERROR");
+		//if (findInResponse != NULL)
+		//{
+		//	this->setLastErrorCode('E');
+		//}
+		//findInResponse = strstr(bufferResponse, "DIALTONE");
+		//if (findInResponse != NULL)
+		//{
+		//	this->setLastErrorCode('D');
+		//}*/
+		//findInResponse = strstr(bufferResponse, "OK");
+		//if (findInResponse != NULL)
+		//{
+		//	returnValue = true;
+		//}
 		/*else
 		{
 			this->setLastErrorCode('N');
