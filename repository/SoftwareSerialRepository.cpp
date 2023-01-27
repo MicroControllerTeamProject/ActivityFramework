@@ -1,29 +1,29 @@
 #include "SoftwareSerialRepository.h"
 #include <SoftwareSerial.h>
 
-SoftwareSerial* softwareSerial = nullptr;
+SoftwareSerial* _softwareSerial = nullptr;
 
 SoftwareSerialRepository::SoftwareSerialRepository(uint8_t rx, uint8_t tx, bool inv_logic = false) {
 	this->_rxPin = rx;
 	this->_txPin = tx;
 	this->invers_logic = inv_logic;
-	softwareSerial = new SoftwareSerial(rx, tx, inv_logic);
+	_softwareSerial = new SoftwareSerial(rx, tx, inv_logic);
 }
 
 SoftwareSerialRepository::~SoftwareSerialRepository()
 {
-		delete(softwareSerial);
+		delete(_softwareSerial);
 }
 
 //void SoftwareSerialRepository::init(uint8_t rx, uint8_t tx, bool inv_logic){
 //	this->_rxPin = rx;
 //	this->_txPin = tx;
 //	this->invers_logic = inv_logic;
-//	softwareSerial = new SoftwareSerial(rx, tx, inv_logic);
+//	_softwareSerial = new SoftwareSerial(rx, tx, inv_logic);
 //}
 
 char* SoftwareSerialRepository::readString_m() {
-	String responseBufferString = softwareSerial->readString();
+	String responseBufferString = _softwareSerial->readString();
 	char* charsBufferByReference;
 	charsBufferByReference = (char*)calloc(responseBufferString.length(), sizeof(char));
 	responseBufferString.toCharArray(charsBufferByReference, responseBufferString.length());
@@ -32,20 +32,24 @@ char* SoftwareSerialRepository::readString_m() {
 
 void SoftwareSerialRepository::clearBuffer_m()
 {
+	while (_softwareSerial->available() > 0) {
+		_softwareSerial->readString();
+	}
+	_softwareSerial->readString();
 }
 
 //void SoftwareSerialRepository::print_m(const char* data,bool isNewLine = false)
 //{
-//	if (this->softwareSerial != nullptr)
+//	if (this->_softwareSerial != nullptr)
 //	{
-//		this->softwareSerial->print(data);
+//		this->_softwareSerial->print(data);
 //	}
 //}
 
 //void SoftwareSerialRepository::print_m(float data, bool isNewLine = false)
 //{
 //	
-//		softwareSerial->print(data);
+//		_softwareSerial->print(data);
 //
 //}
 
@@ -59,44 +63,39 @@ void SoftwareSerialRepository::print_m(uint8_t data, bool isNewLine)
 
 void SoftwareSerialRepository::print_m(const char* data, bool isNewLine = false)
 {
-	if (isNewLine) {
-		softwareSerial->println(data);
-	}
-	else {
-		softwareSerial->print(data);
-	}
-
+	_softwareSerial->print(data);
+	if (isNewLine)_softwareSerial->println();
 }
 
 void SoftwareSerialRepository::print_m(float data, bool isNewLine = false)
 {
-		softwareSerial->println(data);
+		_softwareSerial->println(data);
 }
 
 bool SoftwareSerialRepository::serial_available(){
-		if (softwareSerial->available() > 0)
+		if (_softwareSerial->available() > 0)
 		{
 			return true;
 		}
 }
 
 int SoftwareSerialRepository::read() {
-		return softwareSerial->read();
+		return _softwareSerial->read();
 }
 
 void SoftwareSerialRepository::begin_m(unsigned long baud)
 {
-	softwareSerial->begin(baud);
+	_softwareSerial->begin(baud);
 }
 //
 //char* SoftwareSerialRepository::readString() {
 //	char a[250];
 //	char b[500];
 //	String c;
-//	if (softwareSerial != nullptr)
+//	if (_softwareSerial != nullptr)
 //	{
-//		while (softwareSerial->available() > 0) {
-//			c.concat((char)softwareSerial->read());
+//		while (_softwareSerial->available() > 0) {
+//			c.concat((char)_softwareSerial->read());
 //		}
 //		c.toCharArray(a, c.length());
 //		strcpy(b, a);
@@ -110,9 +109,9 @@ void SoftwareSerialRepository::begin_m(unsigned long baud)
 //	char a[250];
 //	char b[500];
 //	String c;
-//	if (softwareSerial != nullptr)
+//	if (_softwareSerial != nullptr)
 //	{
-//		c = softwareSerial->readString();
+//		c = _softwareSerial->readString();
 //		c.toCharArray(a, c.length());
 //		strcpy(b, a);
 //		return b;

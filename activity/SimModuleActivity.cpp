@@ -4,15 +4,15 @@
 #include <Arduino.h>
 #endif
 
-SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleRepository, 
-	AvrMicroRepository& avrMicroRepository, SimModuleDevice** listOfSimModuleDevice, 
-	uint8_t simModuleDevicesNumber) : DeviceActivity((AvrMicroRepository&)avrMicroRepository,(DigitalPortSensor**)listOfSimModuleDevice, simModuleDevicesNumber) {
+SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleRepository,
+	AvrMicroRepository& avrMicroRepository, SimModuleDevice** listOfSimModuleDevice,
+	uint8_t simModuleDevicesNumber) : DeviceActivity((AvrMicroRepository&)avrMicroRepository, (DigitalPortSensor**)listOfSimModuleDevice, simModuleDevicesNumber) {
 	this->avrMicroRepository = &avrMicroRepository;
 	this->_simModuleRepository = &simModuleRepository;
 	this->_listOfSimModuleDevice = listOfSimModuleDevice;
 	this->_simModuleDevicesNumber = simModuleDevicesNumber;
 
-	
+
 }
 
 SimModuleActivity::SimModuleActivity() {
@@ -114,14 +114,23 @@ bool SimModuleActivity::makeCall(char* deviceUId) {
 bool SimModuleActivity::makeCall(SimModuleDevice* simModuleDevice)
 {
 	bool returnValue = false;
-	this->_simModuleRepository->begin_m(simModuleDevice->getBaud());
 	char* bufferResponse;
+	this->_simModuleRepository->begin_m(simModuleDevice->getBaud());
+	this->_simModuleRepository->print_m("AT");
+	//this->avrMicroRepository->delaym(1000);
 	this->_simModuleRepository->clearBuffer_m();
-	this->_simModuleRepository->print_m("atd"); this->_simModuleRepository->print_m(simModuleDevice->getPrefixNumber()); this->_simModuleRepository->print_m(simModuleDevice->getPhoneNumber(),true);
-	
+	//this->avrMicroRepository->delaym(1000);
+	this->_simModuleRepository->print_m("atd"); this->_simModuleRepository->print_m(simModuleDevice->getPrefixNumber()); this->_simModuleRepository->print_m(simModuleDevice->getPhoneNumber(), true);
+
+	this->avrMicroRepository->delaym(5000);
+
 	if (this->_simModuleRepository->serial_available())
 	{
 		bufferResponse = this->_simModuleRepository->readString_m();
+
+#ifdef _DEBUG
+		Serial.println(bufferResponse);
+#endif
 		char* findInResponse;
 		/*findInResponse = strstr(bufferResponse, "ERROR");
 		if (findInResponse != NULL)
@@ -155,6 +164,7 @@ bool SimModuleActivity::makeCall(SimModuleDevice* simModuleDevice)
 		this->avrMicroRepository->free_m(bufferResponse);
 		this->avrMicroRepository->delaym(2000);
 	}
+	
 	return returnValue;
 }
 
@@ -184,7 +194,7 @@ bool SimModuleActivity::getIsInSleepMode(bool isInSleepMode)
 {
 }
 
-bool SimModuleActivity::setIsDeviceTurnedOff(bool isTurnedOff,char* deviceUid)
+bool SimModuleActivity::setIsDeviceTurnedOff(bool isTurnedOff, char* deviceUid)
 {
 	if (isTurnedOff)
 	{
@@ -196,7 +206,7 @@ bool SimModuleActivity::setIsDeviceTurnedOff(bool isTurnedOff,char* deviceUid)
 			{
 				for (int ii = 0; ii < this->_listOfSimModuleDevice[i]->getDigitalPortsNumber(); ii++)
 				{
-					if (strcmp(this->_listOfSimModuleDevice[i]->getAllDigitalPorts()[ii]->getUid(),"T")==0)
+					if (strcmp(this->_listOfSimModuleDevice[i]->getAllDigitalPorts()[ii]->getUid(), "T") == 0)
 					{
 						this->_listOfSimModuleDevice[i]->setIsDeviceDisabled(true);
 

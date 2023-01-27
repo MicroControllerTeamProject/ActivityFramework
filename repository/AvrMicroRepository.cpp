@@ -124,6 +124,7 @@ void AvrMicroRepository::clearBuffer_m() {
 	while (Serial.available() > 0) {
 		Serial.readString();
 	}
+	Serial.readString();
 }
 
 void AvrMicroRepository::pinMode_m(uint8_t pin, uint8_t mode)
