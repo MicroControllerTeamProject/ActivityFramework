@@ -14,6 +14,7 @@ public:
 	SimModuleActivity();
 	bool makeCall(char* deviceUId);
 	char* makeCall(SimModuleDevice* SimModuleDevice);
+	void enableIncomingSMS(SimModuleDevice* simModuleDevice);
 	void setIsDisableSms(bool isSmsDisabled);
 	bool getIsDisableSms();
 	void setIsCallDisabled(bool isCallDisabled);

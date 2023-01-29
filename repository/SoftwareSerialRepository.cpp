@@ -1,5 +1,6 @@
 #include "SoftwareSerialRepository.h"
 #include <SoftwareSerial.h>
+#include <Arduino.h>
 
 SoftwareSerial* _softwareSerial = nullptr;
 
