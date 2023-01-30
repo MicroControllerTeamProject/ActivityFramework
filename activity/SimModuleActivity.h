@@ -27,6 +27,7 @@ public:
 	SimModuleDevice** _listOfSimModuleDevice = nullptr;
 	InterfaceSerialRepository* _simModuleRepository = nullptr;
 	/*AvrMicroRepository* _avrMicroRepository = nullptr;*/
+	uint8_t getNumberOfSms();
 private:
 	bool _isSmsDisabled = false;
 	bool _isCallDisable = false;

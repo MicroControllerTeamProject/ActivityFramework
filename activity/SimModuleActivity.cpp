@@ -105,7 +105,7 @@ bool SimModuleActivity::makeCall(char* deviceUId) {
 		//		avrMicroRepository.delaym(2000);
 	}
 	//#if defined(VM_DEBUG)
-	//	avrMicroRepository.print_m("ram a:"); avrMicroRepository.print_m(avrMicroRepository.getFreeRam(), true);
+	//	avrMicroRepository.print_m("ram pointerOfCReturn:"); avrMicroRepository.print_m(avrMicroRepository.getFreeRam(), true);
 	//	avrMicroRepository.clearBuffer_m();
 	//#endif
 	return returnValue;
@@ -191,11 +191,11 @@ void SimModuleActivity::enableIncomingSMS(SimModuleDevice* simModuleDevice)
 
 	//this->avrMicroRepository->delaym(1000);
 	char* response = {};
-	uint8_t smsNumbers = 0;
+	uint8_t messageNumbers = 0;
 #ifdef _DEBUG
 	while (1)
 	{
-		this->_simModuleRepository->clearBuffer_m();
+	/*	this->_simModuleRepository->clearBuffer_m();
 
 		this->_simModuleRepository->print_m("AT+CPMS?", true);
 
@@ -224,21 +224,24 @@ void SimModuleActivity::enableIncomingSMS(SimModuleDevice* simModuleDevice)
 				Serial.print("number : "); Serial.println(messageNumbers);
 			}
 			free(response);
-		}
+		}*/
+
+		messageNumbers = getNumberOfSms();
+
 		if (messageNumbers > 0)
 		{
 			for (int i = 1; i <= messageNumbers; i++)
 			{
 				this->_simModuleRepository->clearBuffer_m();
 
-				char n[] = {};
-				itoa(i, n,10);
+				char smsNumber[] = {};
+				itoa(i, smsNumber,10);
 
 				char readMessageInStoreString[15] = "AT+CMGR=";
-				strcat(readMessageInStoreString, n);
+				strcat(readMessageInStoreString, smsNumber);
 
 				char deleteMessageInStoreString[15] = "AT+CMGD=";
-				strcat(deleteMessageInStoreString, n);
+				strcat(deleteMessageInStoreString, smsNumber);
 				strcat(deleteMessageInStoreString, ",0");
 			
 				this->_simModuleRepository->print_m(readMessageInStoreString, true);
@@ -254,24 +257,37 @@ void SimModuleActivity::enableIncomingSMS(SimModuleDevice* simModuleDevice)
 #ifdef _DEBUG
 						Serial.print('#'); Serial.print(response); Serial.println('#');
 #endif
-						uint8_t cicle = 0;
+						/*uint8_t cicle = 0;*/
 
-						char* messageReceived = {};
+					/*	char* messageReceived = {};*/
 
-						char* d = (strrchr(response, '"') + 3);
+						char* pointerFirstMessageChar = (strrchr(response, '"') + 3);
 
-						char* a = strchr(d, '\r\n');
+						char* pointerOfCReturn = strchr(pointerFirstMessageChar, '\r\n');
 
-						Serial.print("puntatore : "); Serial.println((int)a-(int)d);
+						Serial.print("mess.lentgh : "); Serial.println((int)pointerOfCReturn-(int)pointerFirstMessageChar);
 
-						while (d[cicle] != '\r')
+						uint16_t messageLength = (uint16_t)pointerOfCReturn - (uint16_t)pointerFirstMessageChar;
+
+						char messageBuffer[messageLength];
+
+						for (int i = 0; i < messageLength; i++)
 						{
-							Serial.print('-'); Serial.print(d[cicle]); Serial.println('-');
+							messageBuffer[i] = pointerFirstMessageChar[i];
+							/*Serial.print(pointerFirstMessageChar[i]);*/
+						}
+						messageBuffer[messageLength - 1] = '\0';
+
+						Serial.print("message : "); Serial.println(messageBuffer);
+						
+						/*while (pointerFirstMessageChar[cicle] != '\r\n')
+						{
+							Serial.print('-'); Serial.print(pointerFirstMessageChar[cicle]); Serial.println('-');
 
 							cicle++;
-						}
+						}*/
 
-						Serial.print('#'); Serial.print(messageReceived); Serial.println('#');
+					/*	Serial.print('#'); Serial.print(messageReceived); Serial.println('#');*/
 						
 						this->_simModuleRepository->print_m(deleteMessageInStoreString, true);
 					}
@@ -342,6 +358,44 @@ bool SimModuleActivity::setIsDeviceTurnedOff(bool isTurnedOff, char* deviceUid)
 bool SimModuleActivity::getIsDeviceTurnedOff()
 {
 	return false;
+}
+
+uint8_t SimModuleActivity::getNumberOfSms()
+{
+	char* response = {};
+
+	char* endOfPointer = {};
+
+	uint8_t messageNumbers = 0;
+
+	this->_simModuleRepository->clearBuffer_m();
+
+	this->_simModuleRepository->print_m("AT+CPMS?", true);
+
+	delay(100);
+
+	if (this->_simModuleRepository->serial_available())
+	{
+		response = this->_simModuleRepository->readString_m();
+
+		if (response != nullptr) {
+
+			char secondCommaFound[] = { strchr(response, ',')[2] };
+
+			if (strcmp(secondCommaFound, ",") == 0)
+			{
+				endOfPointer = ((strchr(response, ',') + 2));
+			}
+			else {
+				endOfPointer = ((strchr(response, ',') + 3));
+			}
+
+			messageNumbers = strtol(((strchr(response, ',') + 1)), &endOfPointer, 10);
+			//Serial.print("number : "); Serial.println(messageNumbers);
+		}
+		free(response);
+	}
+	return messageNumbers;
 }
 
 //void SimModuleActivity::makeCall(AvrMicroRepository& avrMicroRepository){
