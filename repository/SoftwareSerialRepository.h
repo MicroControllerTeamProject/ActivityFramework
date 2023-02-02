@@ -5,7 +5,7 @@
 class SoftwareSerialRepository : public InterfaceSerialRepository
 {
 public:
-	SoftwareSerialRepository(uint8_t rx, uint8_t tx, bool inv_logic = false);
+	SoftwareSerialRepository(uint8_t rx, uint8_t tx, unsigned long baud, bool inv_logic = false);
 	virtual ~SoftwareSerialRepository();
 	/*virtual char* readString_m();
 	virtual void print_m(float data);
@@ -23,7 +23,7 @@ public:
 
 	virtual void print_m(uint8_t data, bool isNewLine = false);
 
-	virtual bool serial_available();
+	virtual uint8_t serial_available();
 
 	virtual char* readString_m();
 
@@ -41,6 +41,7 @@ protected:
 	uint8_t _rxPin;
 	uint8_t _txPin;
 	bool invers_logic;
+	unsigned long _baud = 0;
 	
 };
 

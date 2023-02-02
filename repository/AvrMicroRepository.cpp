@@ -15,7 +15,8 @@ extern int __brkval;
 int temp;
 
 
-AvrMicroRepository::AvrMicroRepository() {
+AvrMicroRepository::AvrMicroRepository(unsigned long baud) {
+	this->begin_m(baud);
 }
 
 void AvrMicroRepository::analogReferencem(uint8_t mode)
@@ -82,10 +83,9 @@ void AvrMicroRepository::print_m(uint8_t data, bool isNewLine)
 //	delay(100);
 //}
 
-bool AvrMicroRepository::serial_available()
+uint8_t AvrMicroRepository::serial_available()
 {
-	if (Serial.available() > 0) return true;
-	return false;
+	return Serial.available();
 }
 
 void AvrMicroRepository::begin_m(unsigned long baud)
@@ -111,9 +111,19 @@ int AvrMicroRepository::read() {
 
 //return value need to free() memory.
 char* AvrMicroRepository::readString_m() {
-	String responseBufferString = Serial.readString();
+	String responseBufferString = "";// = Serial.readString();
+		while (Serial.available() > 0) {
+			responseBufferString.concat((char)Serial.read());
+		}
 	char* charsBufferByReference;
 	charsBufferByReference = (char*)calloc(responseBufferString.length(), sizeof(char));
+	if (charsBufferByReference == nullptr)
+	{
+#ifdef _DEBUG
+		Serial.println("nP");
+#endif
+		return '\0';
+	}
 	responseBufferString.toCharArray(charsBufferByReference, responseBufferString.length());
 	return charsBufferByReference;
 }

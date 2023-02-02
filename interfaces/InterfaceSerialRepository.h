@@ -12,8 +12,12 @@ public:
 
 	virtual void print_m(uint8_t data, bool isNewLine = false) = 0;
 
-	virtual bool serial_available() = 0;
+	virtual uint8_t serial_available() = 0;
 
+/// <summary>
+/// assigne value to a char* pointer, after remeber to free memory.
+/// </summary>
+/// <returns>return a char*</returns>
 	virtual char* readString_m() = 0;
 
 	virtual void clearBuffer_m() = 0;

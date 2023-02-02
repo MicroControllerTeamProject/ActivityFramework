@@ -4,11 +4,13 @@
 
 SoftwareSerial* _softwareSerial = nullptr;
 
-SoftwareSerialRepository::SoftwareSerialRepository(uint8_t rx, uint8_t tx, bool inv_logic = false) {
+SoftwareSerialRepository::SoftwareSerialRepository(uint8_t rx, uint8_t tx, unsigned long baud, bool inv_logic = false) {
 	this->_rxPin = rx;
 	this->_txPin = tx;
 	this->invers_logic = inv_logic;
+	this->_baud = baud;
 	_softwareSerial = new SoftwareSerial(rx, tx, inv_logic);
+	begin_m(this->_baud);
 }
 
 SoftwareSerialRepository::~SoftwareSerialRepository()
@@ -23,10 +25,20 @@ SoftwareSerialRepository::~SoftwareSerialRepository()
 //	_softwareSerial = new SoftwareSerial(rx, tx, inv_logic);
 //}
 
+
+/// <summary>
+/// return a char* pointer, remember to free memory.
+/// </summary>
+/// <returns>return a char*</returns>
 char* SoftwareSerialRepository::readString_m() {
 	String responseBufferString = _softwareSerial->readString();
 	char* charsBufferByReference;
 	charsBufferByReference = (char*)calloc(responseBufferString.length(), sizeof(char));
+	if (charsBufferByReference == nullptr)
+	{
+		Serial.println("nP");
+		return '\0';
+	}
 	responseBufferString.toCharArray(charsBufferByReference, responseBufferString.length());
 	return charsBufferByReference;
 }
@@ -73,11 +85,8 @@ void SoftwareSerialRepository::print_m(float data, bool isNewLine = false)
 		_softwareSerial->println(data);
 }
 
-bool SoftwareSerialRepository::serial_available(){
-		if (_softwareSerial->available() > 0)
-		{
-			return true;
-		}
+uint8_t SoftwareSerialRepository::serial_available(){
+	return _softwareSerial->available();
 }
 
 int SoftwareSerialRepository::read() {

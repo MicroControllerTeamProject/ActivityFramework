@@ -6,6 +6,7 @@ class DigitalPortSensor //: public IDigitalPort
 {
 public:
 	DigitalPortSensor(char* uid,DigitalPort** listOfDigitalPorts, uint8_t digitalPortsNumbers);
+	DigitalPortSensor();
 	 DigitalPort** getAllDigitalPorts();
 	uint8_t getDigitalPortsNumber();
 	 void setUid(char* uid);

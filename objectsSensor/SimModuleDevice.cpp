@@ -3,13 +3,17 @@
 SimModuleDevice::SimModuleDevice(char* uid, DigitalPort** listOfDigitalPorts, uint8_t digitalPortsNumbers) : DigitalPortSensor(uid, listOfDigitalPorts, digitalPortsNumbers){
 }
 
-void SimModuleDevice::init(char* prefixNumber, char* phoneNumber, unsigned long baud)
+SimModuleDevice::SimModuleDevice()
+{
+}
+
+void SimModuleDevice::init(char* prefixNumber, char* phoneNumber)
 {
 	this->_phoneNumber = phoneNumber;
 	this->_prefixNumber = prefixNumber;
-	this->_baud = baud;
-
+	
 }
+
 
 void SimModuleDevice::setIsDisableSms(bool isSmsDisabled)
 {
@@ -56,10 +60,10 @@ char* SimModuleDevice::getPrefixNumber()
 	return this->_prefixNumber;
 }
 
-unsigned long SimModuleDevice::getBaud()
-{
-	return this->_baud;
-}
+//unsigned long SimModuleDevice::getBaud()
+//{
+//	return this->_baud;
+//}
 
 
 

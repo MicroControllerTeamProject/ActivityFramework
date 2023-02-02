@@ -11,6 +11,10 @@ DigitalPortSensor::DigitalPortSensor(char* uid,DigitalPort** listOfDigitalPorts,
 	this->_uid = uid;
 }
 
+DigitalPortSensor::DigitalPortSensor()
+{
+}
+
 DigitalPort** DigitalPortSensor::getAllDigitalPorts()
 {
 	return this->_listOfDigitalPorts;

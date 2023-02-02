@@ -7,7 +7,7 @@ class AvrMicroRepository : public InterfaceSerialRepository
 {
 public:
 
-	AvrMicroRepository();
+	AvrMicroRepository(unsigned long baud);
 
 	virtual void analogReferencem(uint8_t mode);
 
@@ -43,7 +43,7 @@ public:
 
 	virtual void print_m(uint8_t data, bool isNewLine = false);
 
-	virtual bool serial_available();
+	virtual uint8_t serial_available();
 
 	virtual char* readString_m();
 

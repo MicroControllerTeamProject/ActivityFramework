@@ -5,22 +5,33 @@
 #include <Arduino.h>
 #endif
 
-DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, DigitalPortSensor** digitalPortSensors, uint8_t digitalPortSensorsNumber)
+DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, DigitalPortSensor** listOfDigitalPortSensors, uint8_t digitalPortSensorsNumber)
 {
 	this->avrMicroRepository = &avrMicroRepository;
-	this->digitalPortSensors = digitalPortSensors;
+	this->_listOfDigitalPortSensors = listOfDigitalPortSensors;
 	this->_digitalPortSensorNumber = digitalPortSensorsNumber;
-
 	initializeDigitalPorts();
+
 }
 
-DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, AnalogPortSensor** analogPortSensor, float vref, commonsLayer::analogRefMode mode, uint8_t analogPortSensorsNumber)
+DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, AnalogPortSensor** listOfAnalogPortSensor, float vref, commonsLayer::analogRefMode mode, uint8_t analogPortSensorsNumber)
 {
-	this->analogPortSensors = analogPortSensor;
+	this->_listOfAnalogPortSensors = listOfAnalogPortSensor;
 	this->_analogPortsSensorNumber = analogPortSensorsNumber;
 	this->_vref = vref;
 	this->vrefMode = mode;
 	this->avrMicroRepository = &avrMicroRepository;
+}
+
+DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, DigitalPortSensor* digitalPortSensor)
+{
+	DigitalPortSensor* listOfAnalogPortSensor[1]{};
+	listOfAnalogPortSensor[0] = new DigitalPortSensor(*digitalPortSensor);
+	DeviceActivity(avrMicroRepository, listOfAnalogPortSensor, 1);
+}
+
+DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, AnalogPortSensor* analogPortSensor, float _vref, commonsLayer::analogRefMode mode)
+{
 }
 
 DeviceActivity::DeviceActivity() {
@@ -29,7 +40,7 @@ DeviceActivity::DeviceActivity() {
 void DeviceActivity::initializeDigitalPorts()
 {
 	for (int ii = 0; ii < this->_digitalPortSensorNumber; ii++) {
-		DigitalPortSensor* digitalPortSensor = this->digitalPortSensors[ii];
+		DigitalPortSensor* digitalPortSensor = this->_listOfDigitalPortSensors[ii];
 		if (digitalPortSensor != nullptr)
 		{
 			for (int i = 0; i < digitalPortSensor->getDigitalPortsNumber(); i++)
@@ -188,7 +199,7 @@ bool DeviceActivity::isDigitalPortOnAlarm(char* sensorUid)
 {
 
 	for (int ii = 0; ii < this->_digitalPortSensorNumber; ii++) {
-		DigitalPortSensor* digitalPortSensor = this->digitalPortSensors[ii];
+		DigitalPortSensor* digitalPortSensor = this->_listOfDigitalPortSensors[ii];
 		if (digitalPortSensor != nullptr && (strcmp(sensorUid, digitalPortSensor->getUid()) == 0))
 		{
 
@@ -236,7 +247,7 @@ bool DeviceActivity::isDigitalPortOnAlarm(char* sensorUid)
 bool DeviceActivity::isAnalogPortOnAlarm(char* sensorUid)
 {
 	for (int ii = 0; ii < this->_analogPortsSensorNumber; ii++) {
-		AnalogPortSensor* analogPortSensor = this->analogPortSensors[ii];
+		AnalogPortSensor* analogPortSensor = this->_listOfAnalogPortSensors[ii];
 		if (analogPortSensor != nullptr && (strcmp(sensorUid, analogPortSensor->getUid()) == 0))
 		{
 			AnalogPort* analogPort = analogPortSensor->getAllAnalogPorts()[0];
@@ -277,9 +288,9 @@ bool DeviceActivity::isAnalogPortOnAlarm(char* sensorUid)
 				}
 			}
 			////with multi ports
-			//for (int i = 0; i < analogPortSensor->getAnalogPortsNumber(); i++)
+			//for (int i = 0; i < listOfAnalogPortSensor->getAnalogPortsNumber(); i++)
 			//{
-			//	AnalogPort* analogPort = analogPortSensor->getAllAnalogPorts()[i];
+			//	AnalogPort* analogPort = listOfAnalogPortSensor->getAllAnalogPorts()[i];
 			//	if (analogPort != nullptr)
 			//	{
 			//		if (analogPort->isEnable && analogPort->maxVoltageAlarmValueIn != 0 && (strcmp(sensorUid, analogPort->getUid()) == 0))
@@ -321,7 +332,7 @@ bool DeviceActivity::isAnalogPortOnAlarm(char* sensorUid)
 
 float DeviceActivity::getAnalogPortVrefVoltage(char* sensorUid) {
 	for (int ii = 0; ii < this->_analogPortsSensorNumber; ii++) {
-		AnalogPortSensor* analogPortSensor = this->analogPortSensors[ii];
+		AnalogPortSensor* analogPortSensor = this->_listOfAnalogPortSensors[ii];
 		if (analogPortSensor != nullptr && (strcmp(sensorUid, analogPortSensor->getUid()) == 0))
 		{
 			AnalogPort* analogPort = analogPortSensor->getAllAnalogPorts()[0];
@@ -335,9 +346,9 @@ float DeviceActivity::getAnalogPortVrefVoltage(char* sensorUid) {
 			}
 
 			////Multi ports
-			//for (int i = 0; i < analogPortSensor->getAnalogPortsNumber(); i++)
+			//for (int i = 0; i < listOfAnalogPortSensor->getAnalogPortsNumber(); i++)
 			//{
-			//	AnalogPort* analogPort = analogPortSensor->getAllAnalogPorts()[i];
+			//	AnalogPort* analogPort = listOfAnalogPortSensor->getAllAnalogPorts()[i];
 			//	if (analogPort != nullptr)
 			//	{
 			//		if (analogPort->isEnable && (strcmp(sensorUid, analogPort->getUid()) == 0))

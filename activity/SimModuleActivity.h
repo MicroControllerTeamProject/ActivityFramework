@@ -11,10 +11,11 @@ class SimModuleActivity : public DeviceActivity
 {
 public:
 	SimModuleActivity(InterfaceSerialRepository& simModuleRepository, AvrMicroRepository& avrMicroRepository, SimModuleDevice** listOfSimModuleDevice, uint8_t simModuleDevicesNumber);
+	SimModuleActivity(InterfaceSerialRepository& simModuleRepository, AvrMicroRepository& avrMicroRepository, SimModuleDevice* simModuleDevice);
 	SimModuleActivity();
 	bool makeCall(char* deviceUId);
-	char* makeCall(SimModuleDevice* SimModuleDevice);
-	void enableIncomingSMS(SimModuleDevice* simModuleDevice);
+	char* makeCall();
+	/*void enableIncomingSMS();*/
 	void setIsDisableSms(bool isSmsDisabled);
 	bool getIsDisableSms();
 	void setIsCallDisabled(bool isCallDisabled);
@@ -28,6 +29,17 @@ public:
 	InterfaceSerialRepository* _simModuleRepository = nullptr;
 	/*AvrMicroRepository* _avrMicroRepository = nullptr;*/
 	uint8_t getNumberOfSms();
+	void enableSmsIncoming();
+
+	/// <summary>
+	/// remember to free memory of returned char* pointer
+	/// </summary>
+	/// <param name="index"></param>
+	/// <returns></returns>
+	char* getSmSResponseByIndex(uint8_t index);
+	void deleteSmSByIndex(uint8_t index);
+
+	char* extractSmsMessageFromReponse(char* response);
 private:
 	bool _isSmsDisabled = false;
 	bool _isCallDisable = false;
