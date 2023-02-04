@@ -7,20 +7,27 @@ public:
 	SimModuleDevice(char* uid, DigitalPort** listOfDigitalPorts, uint8_t digitalPortsNumbers);
 	SimModuleDevice();
 	void init(char* prefixNumber, char* phoneNumber);
-	void setIsDisableSms(bool isSmsDisabled);
-	bool getIsDisableSms();
-	void setIsCallDisabled(bool isCallDisabled);
 
-	void setIsDeviceDisabled(bool isDeviceDisabled);
-	bool getIsDeviceDisabled();
+	void setEnableSmsStatus(bool isSmsDisabled);
+	bool getEnableSmsStatus();
 
-	bool getIsCallDisabled();
+	void setEnableCallStatus(bool isCallDisabled);
+	bool getEnableCallStatus();
+
+	void setEnableDeviceStatus(bool isDeviceDisabled);
+	bool getEnableDeviceStatus();
+
+	void setBlockedStrangerCaller(bool isDeviceDisabled);
+	bool getBlockedStrangerCaller();
+
+
 	char* getPhoneNumber();
 	char* getPrefixNumber();
 	/*unsigned long getBaud();*/
 	uint8_t _rx;
 	uint8_t _tx;
 private:
+	bool _isBlockedStrangerCaller = true;
 	bool _isSmsDisabled = false;
 	bool _isCallDisable = false;
 	bool isTurnedOff = false;

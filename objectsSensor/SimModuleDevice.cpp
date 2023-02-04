@@ -15,29 +15,38 @@ void SimModuleDevice::init(char* prefixNumber, char* phoneNumber)
 }
 
 
-void SimModuleDevice::setIsDisableSms(bool isSmsDisabled)
+void SimModuleDevice::setEnableSmsStatus(bool isSmsDisabled)
 {
 }
 
-bool SimModuleDevice::getIsDisableSms()
-{
-	return false;
-}
-
-void SimModuleDevice::setIsCallDisabled(bool isCallDisabled)
-{
-}
-
-void SimModuleDevice::setIsDeviceDisabled(bool isDeviceDisabled)
-{
-}
-
-bool SimModuleDevice::getIsDeviceDisabled()
+bool SimModuleDevice::getEnableSmsStatus()
 {
 	return false;
 }
 
-bool SimModuleDevice::getIsCallDisabled()
+void SimModuleDevice::setEnableCallStatus(bool isCallDisabled)
+{
+}
+
+void SimModuleDevice::setEnableDeviceStatus(bool isDeviceDisabled)
+{
+}
+
+bool SimModuleDevice::getEnableDeviceStatus()
+{
+	return false;
+}
+
+void SimModuleDevice::setBlockedStrangerCaller(bool isDeviceDisabled)
+{
+}
+
+bool SimModuleDevice::getBlockedStrangerCaller()
+{
+	return false;
+}
+
+bool SimModuleDevice::getEnableCallStatus()
 {
 	return false;
 }

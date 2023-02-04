@@ -40,7 +40,9 @@ public:
 	void deleteSmSByIndex(uint8_t index);
 
 	char* extractSmsMessageFromReponse(char* response);
+	char* extractSmsCallerFromReponse(char* response);
 private:
+	char* subStringBetweenTags(char* p_string, char tag[1], uint16_t position);
 	bool _isSmsDisabled = false;
 	bool _isCallDisable = false;
 	bool _isTurnedOff = false;

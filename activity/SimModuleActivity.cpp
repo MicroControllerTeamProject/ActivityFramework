@@ -383,7 +383,7 @@ bool SimModuleActivity::setIsDeviceTurnedOff(bool isTurnedOff, char* deviceUid)
 				{
 					if (strcmp(this->_listOfSimModuleDevice[i]->getAllDigitalPorts()[ii]->getUid(), "T") == 0)
 					{
-						this->_listOfSimModuleDevice[i]->setIsDeviceDisabled(true);
+						this->_listOfSimModuleDevice[i]->setEnableDeviceStatus(true);
 
 						//this->_avrMicroRepository->digitalWrite_m(this->_listOfSimModuleDevice[i]->getAllDigitalPorts()[ii]->getPin(),)
 						return true;
@@ -455,8 +455,8 @@ void SimModuleActivity::enableSmsIncoming()
 	this->_simModuleRepository->print_m("AT+CMGF=1", true);
 	this->avrMicroRepository->delaym(2000);
 
-	this->_simModuleRepository->print_m("AT+CMGD=1,4", true);
-	this->avrMicroRepository->delaym(5000);
+	/*this->_simModuleRepository->print_m("AT+CMGD=1,4", true);
+	this->avrMicroRepository->delaym(5000);*/
 
 	this->_simModuleRepository->print_m("AT+CSCLK=0", true);
 }
@@ -554,6 +554,58 @@ char* SimModuleActivity::extractSmsMessageFromReponse(char* response)
 	messageBuffer[messageLength - 1] = '\0';
 
 	//Serial.print("smsMessage : "); Serial.println(messageBuffer);
+	return messageBuffer;
+}
+
+char* SimModuleActivity::extractSmsCallerFromReponse(char* response)
+{
+	return subStringBetweenTags(response, "\"", 4);
+}
+
+char* SimModuleActivity::subStringBetweenTags(char* p_string, char tag[1], uint16_t position)
+{
+	char* startPointer{};
+	char* endPointer{};
+	char* c[2]{};
+	if (position == 1 || position == 0) {
+		startPointer = p_string;
+		endPointer = (char*)strstr(p_string, tag);
+	}
+	else
+	{
+		for (int i = 0; i < position; i++)
+		{
+			char* index = (char*)strstr(p_string, tag) + 1;
+			p_string = (char*)index;
+			if (i == (position - 2))
+			{
+				c[0] = (char*)index;
+			}
+			if (i == (position - 1))
+			{
+				c[1] = (char*)index;
+			}
+			startPointer = c[0];
+			endPointer = c[1] - 1;
+
+		}
+	}
+	uint8_t messageLength = (uint16_t)endPointer - (uint16_t)startPointer;
+	char* messageBuffer = {};
+	messageBuffer = (char*)calloc(messageLength, sizeof(char));
+	if (messageBuffer == nullptr)
+	{
+#ifdef _DEBUG
+		Serial.println("nP");
+#endif
+		return '\0';
+	}
+
+	for (int i = 0; i < messageLength; i++)
+	{
+		messageBuffer[i] = startPointer[i];
+	}
+	messageBuffer[messageLength] = '\0';
 	return messageBuffer;
 }
 
