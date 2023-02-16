@@ -5,6 +5,7 @@
 #include "..\objectsSensor\SimModuleDevice.h"
 #include "..\interfaces\InterfaceSerialRepository.h"
 #include "..\interfaces\InterfaceMicroRepository.h"
+#include "..\repository\ProgMemRepository.h"
 
 
 class SimModuleActivity : public DeviceActivity
@@ -29,7 +30,7 @@ public:
 	InterfaceSerialRepository* _simModuleRepository = nullptr;
 	/*AvrMicroRepository* _avrMicroRepository = nullptr;*/
 	uint8_t getNumberOfSms();
-	void enableSmsIncoming();
+	void enableSmsIncoming(ProgMemRepository* progMemRepository);
 
 	/// <summary>
 	/// remember to free memory of returned char* pointer

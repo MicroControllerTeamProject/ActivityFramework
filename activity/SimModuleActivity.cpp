@@ -19,7 +19,7 @@ SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleReposit
 	this->_simModuleDevicesNumber = simModuleDevicesNumber;
 }
 
-SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleRepository, AvrMicroRepository& avrMicroRepository, SimModuleDevice* simModuleDevice) : DeviceActivity((AvrMicroRepository&)avrMicroRepository, (DigitalPortSensor*)simModuleDevice)
+SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleRepository, AvrMicroRepository& avrMicroRepository,SimModuleDevice* simModuleDevice) : DeviceActivity((AvrMicroRepository&)avrMicroRepository, (DigitalPortSensor*)simModuleDevice)
 {
 	this->avrMicroRepository = &avrMicroRepository;
 	this->_simModuleRepository = &simModuleRepository;
@@ -444,14 +444,18 @@ uint8_t SimModuleActivity::getNumberOfSms()
 	return messageNumbers;
 }
 
-void SimModuleActivity::enableSmsIncoming()
+void SimModuleActivity::enableSmsIncoming(ProgMemRepository* progMemRepository)
 {
 	/*this->_simModuleRepository->print_m("AT", true);
 	this->avrMicroRepository->delaym(1000);*/
-
-	this->_simModuleRepository->print_m("AT+CPMS=\"SM\"", true);
+	
+	//AT+CPMS="SM" index 0
+	progMemRepository->sendAtCommand(0,this->_simModuleRepository);
+	/*this->_simModuleRepository->print_m("AT+CPMS=\"SM\"", true);*/
 	this->avrMicroRepository->delaym(2000);
 
+
+	//"AT+CMGF=1" index = 13
 	this->_simModuleRepository->print_m("AT+CMGF=1", true);
 	this->avrMicroRepository->delaym(2000);
 
@@ -605,7 +609,7 @@ char* SimModuleActivity::subStringBetweenTags(char* p_string, char tag[1], uint1
 	{
 		messageBuffer[i] = startPointer[i];
 	}
-	messageBuffer[messageLength] = '\0';
+	messageBuffer[messageLength - 1] = '\0';
 	return messageBuffer;
 }
 
