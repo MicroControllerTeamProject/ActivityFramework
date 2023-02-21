@@ -495,7 +495,7 @@ bool SimModuleActivity::isSmsOnBuffer(bool deleteIfFound, uint16_t progmemIndex)
 
 		smsResponceLength = 90;
 
-		getSmsUnReadResponceLengh(0);
+		getSmsByIndex(0);
 
 #ifdef _DEBUG
 		/*Serial.print(F("smsResponceLength : ")); Serial.println(smsResponceLength);*/
@@ -543,7 +543,7 @@ bool SimModuleActivity::isSmsOnBuffer(bool deleteIfFound, uint16_t progmemIndex)
 /// <returns></returns>
 /// 
 
-int SimModuleActivity::getSmsUnReadResponceLengh()
+int SimModuleActivity::getSmsByIndex()
 {
 	this->_simModuleRepository->clearBuffer_m();
 
@@ -554,6 +554,42 @@ int SimModuleActivity::getSmsUnReadResponceLengh()
 	this->avrMicroRepository->delaym(1000);
 
 	return this->_simModuleRepository->serial_available();
+}
+
+
+void SimModuleActivity::deleteSmsByIndex(uint8_t index)
+{
+	this->_simModuleRepository->clearBuffer_m();
+
+	char smsIndex[] = {};
+
+	itoa(index, smsIndex, 10);
+
+	char readMessageInStoreString[15] = "AT+CMGD=";
+
+	strcat(readMessageInStoreString, smsIndex);
+
+	this->_simModuleRepository->print_m(readMessageInStoreString, true);
+
+	this->avrMicroRepository->delaym(1000);
+}
+
+
+void SimModuleActivity::getSmsByIndex(uint8_t index)
+{
+	this->_simModuleRepository->clearBuffer_m();
+
+    char smsIndex[] = {};
+
+	itoa(index, smsIndex,10);
+
+	char readMessageInStoreString[15] = "AT+CMGR=";
+
+	strcat(readMessageInStoreString, smsIndex);
+
+	this->_simModuleRepository->print_m(readMessageInStoreString, true);
+
+	this->avrMicroRepository->delaym(1000);
 }
 
 int SimModuleActivity::getBuffLenghtPROGMEM_AT_INDEX(uint16_t progMemIndex)
@@ -597,7 +633,7 @@ bool SimModuleActivity::getSmsResponse(char* bufferP, uint16_t bufferLenght)
 	}
 	bufferP[i + 1] = '\0';
 
-	if (strstr(bufferP, "+CMGL:") != nullptr)
+	if (strstr(bufferP, "+CMGR:") != nullptr)
 	{
 		return true;
 	}
@@ -672,13 +708,18 @@ uint16_t SimModuleActivity::getSmsBytesLength(char* response)
 void SimModuleActivity::extractSmsMessageFromReponse2(char* response, char* messageBuffer, uint16_t messageLength)
 {
 	char* pointerFirstMessageChar = (strrchr(response, '"') + 3);
-
-	int i,j = 0;
+	bool exit = false;
+	int i = 0;
+	int j = 0;
 	do
 	{
 		j = i++;
 		messageBuffer[j] = pointerFirstMessageChar[j];
-	} while (messageBuffer[j] != '*' && j < messageLength);
+		if (messageBuffer[j] == '*' || j >= messageLength)
+		{
+			exit = true;
+		}
+	} while (!exit);
 
 	messageBuffer[j] = '\0';
 }

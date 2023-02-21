@@ -37,7 +37,7 @@ public:
 
 	bool isSmsOnBuffer(bool deleteIfFound,uint16_t progmemIndex);
 
-	int getSmsUnReadResponceLengh(uint8_t index);
+	void getSmsByIndex(uint8_t index);
 
 	bool getSmsResponse(char* bufferP, uint16_t bufferLenght);
 
@@ -53,7 +53,9 @@ public:
 
 	uint16_t getSmsBytesLength(char* response);
 
-	int getSmsUnReadResponceLengh();
+	int getSmsByIndex();
+
+	void deleteSmsByIndex(uint8_t index);
 
 	int getBuffLenghtPROGMEM_AT_INDEX(uint16_t progMemIndex);
 
