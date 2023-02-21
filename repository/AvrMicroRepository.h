@@ -43,7 +43,7 @@ public:
 
 	virtual void print_m(uint8_t data, bool isNewLine = false);
 
-	virtual uint8_t serial_available();
+	virtual int serial_available();
 
 	virtual char* readString_m();
 
@@ -51,7 +51,7 @@ public:
 
 	virtual void begin_m(unsigned long baud);
 
-	virtual int read();
+	virtual int read_m();
 
 #pragma endregion InterfaceSerialRepository -------------------------------------------------
 

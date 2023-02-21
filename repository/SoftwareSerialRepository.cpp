@@ -46,10 +46,17 @@ char* SoftwareSerialRepository::readString_m() {
 
 void SoftwareSerialRepository::clearBuffer_m()
 {
-	while (_softwareSerial->available() > 0) {
+	char p[150];
+	_softwareSerial->readBytes(p, 127);
+	/*while () {
 		_softwareSerial->readString();
 	}
-	_softwareSerial->readString();
+	_softwareSerial->readString();*/
+
+	/*while (_softwareSerial->available() > 0) {
+		_softwareSerial->readString();
+	}
+	_softwareSerial->readString();*/
 }
 
 //void SoftwareSerialRepository::print_m(const char* data,bool isNewLine = false)
@@ -86,11 +93,11 @@ void SoftwareSerialRepository::print_m(float data, bool isNewLine = false)
 		_softwareSerial->println(data);
 }
 
-uint8_t SoftwareSerialRepository::serial_available(){
+int SoftwareSerialRepository::serial_available(){
 	return _softwareSerial->available();
 }
 
-int SoftwareSerialRepository::read() {
+int SoftwareSerialRepository::read_m() {
 		return _softwareSerial->read();
 }
 

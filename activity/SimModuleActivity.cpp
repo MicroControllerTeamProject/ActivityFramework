@@ -19,12 +19,13 @@ SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleReposit
 	this->_simModuleDevicesNumber = simModuleDevicesNumber;
 }
 
-SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleRepository, AvrMicroRepository& avrMicroRepository,SimModuleDevice* simModuleDevice) : DeviceActivity((AvrMicroRepository&)avrMicroRepository, (DigitalPortSensor*)simModuleDevice)
+SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleRepository, SimProgMemRepository& simProgMemRepository, AvrMicroRepository& avrMicroRepository, SimModuleDevice* simModuleDevice) : DeviceActivity((AvrMicroRepository&)avrMicroRepository, (DigitalPortSensor*)simModuleDevice)
 {
 	this->avrMicroRepository = &avrMicroRepository;
 	this->_simModuleRepository = &simModuleRepository;
-	this->_listOfSimModuleDevice = new SimModuleDevice*[1];
+	this->_listOfSimModuleDevice = new SimModuleDevice * [1];
 	this->_listOfSimModuleDevice[0] = simModuleDevice;
+	this->_simProgMemRepository = &simProgMemRepository;
 }
 
 SimModuleActivity::SimModuleActivity() {
@@ -140,7 +141,7 @@ char* SimModuleActivity::makeCall()
 	{
 		bufferResponse = this->_simModuleRepository->readString_m();
 		//strcpy(returnValue, bufferResponse);
-		
+
 //#ifdef _DEBUG
 //		Serial.println(bufferResponse);
 //#endif
@@ -176,7 +177,7 @@ char* SimModuleActivity::makeCall()
 		/*this->avrMicroRepository->free_m(bufferResponse);*/
 		this->avrMicroRepository->delaym(2000);
 	}
-	
+
 	return bufferResponse;
 }
 
@@ -207,7 +208,7 @@ char* SimModuleActivity::makeCall()
 //
 //	while (1)
 //	{
-//		messageNumbers = getNumberOfSms();
+//		messageNumbers = getNumberOfSmsReceived();
 //		if (messageNumbers > 0)
 //		{
 //			char* response = getSmSResponseByIndex(1);
@@ -266,7 +267,7 @@ char* SimModuleActivity::makeCall()
 //			free(response);
 //		}*/
 //
-//		messageNumbers = getNumberOfSms();
+//		messageNumbers = getNumberOfSmsReceived();
 //
 //		if (messageNumbers > 0)
 //		{
@@ -274,14 +275,14 @@ char* SimModuleActivity::makeCall()
 //			{
 //				this->_simModuleRepository->clearBuffer_m();
 //
-//				char smsNumber[] = {};
-//				itoa(i, smsNumber,10);
+//				char smsIndex[] = {};
+//				itoa(i, smsIndex,10);
 //
 //				char readMessageInStoreString[15] = "AT+CMGR=";
-//				strcat(readMessageInStoreString, smsNumber);
+//				strcat(readMessageInStoreString, smsIndex);
 //
 //				char deleteMessageInStoreString[15] = "AT+CMGD=";
-//				strcat(deleteMessageInStoreString, smsNumber);
+//				strcat(deleteMessageInStoreString, smsIndex);
 //				strcat(deleteMessageInStoreString, ",0");
 //			
 //				this->_simModuleRepository->print_m(readMessageInStoreString, true);
@@ -401,7 +402,7 @@ bool SimModuleActivity::getIsDeviceTurnedOff()
 }
 
 
-uint8_t SimModuleActivity::getNumberOfSms()
+uint8_t SimModuleActivity::getNumberOfSmsReceived()
 {
 	char* response = {};
 
@@ -419,9 +420,9 @@ uint8_t SimModuleActivity::getNumberOfSms()
 	{
 		response = this->_simModuleRepository->readString_m();
 
-//#ifdef _DEBUG
-//		Serial.println(response);
-//#endif
+		//#ifdef _DEBUG
+		//		Serial.println(response);
+		//#endif
 
 		if (response != nullptr) {
 
@@ -444,46 +445,178 @@ uint8_t SimModuleActivity::getNumberOfSms()
 	return messageNumbers;
 }
 
-void SimModuleActivity::enableSmsIncoming(ProgMemRepository* progMemRepository)
+void SimModuleActivity::enableSmsIncoming()
 {
-	/*this->_simModuleRepository->print_m("AT", true);
-	this->avrMicroRepository->delaym(1000);*/
-	
 	//AT+CPMS="SM" index 0
-	progMemRepository->sendAtCommand(0,this->_simModuleRepository);
-	/*this->_simModuleRepository->print_m("AT+CPMS=\"SM\"", true);*/
-	this->avrMicroRepository->delaym(2000);
+	this->_simProgMemRepository->sendAtCommand(0, this->_simModuleRepository);
 
+	this->avrMicroRepository->delaym(2000);
 
 	//"AT+CMGF=1" index = 13
-	this->_simModuleRepository->print_m("AT+CMGF=1", true);
+	this->_simProgMemRepository->sendAtCommand(13, this->_simModuleRepository);
+
 	this->avrMicroRepository->delaym(2000);
 
-	/*this->_simModuleRepository->print_m("AT+CMGD=1,4", true);
-	this->avrMicroRepository->delaym(5000);*/
+	////"AT+CMGD=1,4" index 71
+	this->_simProgMemRepository->sendAtCommand(71, this->_simModuleRepository);
+	this->avrMicroRepository->delaym(5000);
 
-	this->_simModuleRepository->print_m("AT+CSCLK=0", true);
+	/*this->_simModuleRepository->print_m("AT+CSCLK=0", true);*/
+	this->_simProgMemRepository->sendAtCommand(23, this->_simModuleRepository);
+
+
 }
 
+void SimModuleActivity::deleteAllReadSMS() {
+	this->_simModuleRepository->print_m("AT+CMGD=1,4", true);
+}
+
+bool SimModuleActivity::isSmsOnBuffer(bool deleteIfFound, uint16_t progmemIndex)
+{
+	bool isSmsOnBuffer = false;
+
+	uint16_t smsStringToFindLenght = _simProgMemRepository->getProgMemSmsToFindLenght(progmemIndex);
+
+	char smsStringToFound[smsStringToFindLenght];
+
+	_simProgMemRepository->getSmsToFind(progmemIndex, smsStringToFound, smsStringToFindLenght);
+
+#ifdef _DEBUG
+	//Serial.print(F("sms to find #")); Serial.print(smsStringToFound); Serial.println(F("#"));
+#endif
+	uint8_t smsNumbers = getNumberOfSmsReceived();
+#ifdef _DEBUG
+	Serial.print(F("sms number : ")); Serial.println(smsNumbers);
+#endif
+
+	if (smsNumbers > 0)
+	{
+		int smsResponceLength = 0;
+
+		smsResponceLength = 90;
+
+		getSmsUnReadResponceLengh(0);
+
+#ifdef _DEBUG
+		/*Serial.print(F("smsResponceLength : ")); Serial.println(smsResponceLength);*/
+#endif
+
+		char smsResponceBuff[smsResponceLength];
+
+		if (getSmsResponse(smsResponceBuff, smsResponceLength))
+		{
+#ifdef _DEBUG
+			/*Serial.print("#"); Serial.print(smsResponceBuff); Serial.println("#");*/
+#endif
+			int smsReceivedLenght = getSmsBytesLength(smsResponceBuff);
+#ifdef _DEBUG
+			/*Serial.print(F("sms lenght : ")); Serial.println(smsReceivedLenght);*/
+#endif
+
+			char smsReceived[smsReceivedLenght];
+
+			extractSmsMessageFromReponse2(smsResponceBuff, smsReceived, smsReceivedLenght);
+
+#ifdef _DEBUG
+			Serial.print(F("smsReceived : ")); Serial.println(smsReceived);
+#endif
+			if (strcmp(smsReceived, smsStringToFound) == 0) {
+#ifdef _DEBUG
+				/*Serial.println(F("found"));*/
+#endif
+				isSmsOnBuffer = true;
+			}
+		}
+	/*	else
+		{
+			deleteAllReadSMS();
+			isSmsOnBuffer = false;
+		}*/
+	}
+	return isSmsOnBuffer;
+}
 
 /// <summary>
 /// remember to free memory of returned char* pointer
 /// </summary>
 /// <param name="index"></param>
 /// <returns></returns>
+/// 
+
+int SimModuleActivity::getSmsUnReadResponceLengh()
+{
+	this->_simModuleRepository->clearBuffer_m();
+
+	char readMessageInStoreString[8] = "AT+CMGL";
+
+	this->_simModuleRepository->print_m(readMessageInStoreString, true);
+
+	this->avrMicroRepository->delaym(1000);
+
+	return this->_simModuleRepository->serial_available();
+}
+
+int SimModuleActivity::getBuffLenghtPROGMEM_AT_INDEX(uint16_t progMemIndex)
+{
+	this->_simModuleRepository->clearBuffer_m();
+
+	this->_simProgMemRepository->sendAtCommand(progMemIndex, this->_simModuleRepository);
+
+	delay(1000);
+
+	return this->_simModuleRepository->serial_available();
+}
+
+bool SimModuleActivity::getSmsResponse(char* bufferP, uint16_t bufferLenght)
+{
+	//for (int i = 0; i < bufferLenght; i++)
+	//{
+	//	bufferP[i] = this->_simModuleRepository->read_m();
+	//	Serial.print(bufferP[i]); Serial.print(" - - "); Serial.println(bufferP[i], 10);
+	//}
+	int i = 0;
+	bool exit = false;
+	while(!exit && i < 90)
+	{
+		bufferP[i] = this->_simModuleRepository->read_m();
+		//if (i > 0)
+		//{
+		//	if (bufferP[i-1] == 'O' && bufferP[i] == 'K')
+		//	{
+		//		exit = true;
+		//	}
+		//}
+		//i++;
+		if(bufferP[i] == '*')
+		{
+			exit = true;
+		}
+		else {
+			i++;
+		}
+	}
+	bufferP[i + 1] = '\0';
+
+	if (strstr(bufferP, "+CMGL:") != nullptr)
+	{
+		return true;
+	}
+	return false;
+}
+
 char* SimModuleActivity::getSmSResponseByIndex(uint8_t index)
 {
 	if (index == 0)index++;
 
 	this->_simModuleRepository->clearBuffer_m();
 
-	char smsNumber[] = {};
+	char smsIndex[] = {};
 
-	itoa(index, smsNumber, 10);
+	itoa(index, smsIndex, 10);
 
 	char readMessageInStoreString[15] = "AT+CMGR=";
 
-	strcat(readMessageInStoreString, smsNumber);
+	strcat(readMessageInStoreString, smsIndex);
 
 	this->_simModuleRepository->print_m(readMessageInStoreString, true);
 
@@ -520,6 +653,34 @@ void SimModuleActivity::deleteSmSByIndex(uint8_t index)
 	strcat(deleteMessageInStoreString, ",0");
 
 	this->_simModuleRepository->print_m(deleteMessageInStoreString, true);
+
+}
+
+uint16_t SimModuleActivity::getSmsBytesLength(char* response)
+{
+	char* pointerFirstMessageChar = (strrchr(response, '"') + 3);
+
+	char* pointerOfCReturn = strchr(pointerFirstMessageChar, '\r\n');
+
+	//Serial.print("mess.lentgh : "); Serial.println((int)pointerOfCReturn - (int)pointerFirstMessageChar);
+
+	uint16_t messageLength = (uint16_t)pointerOfCReturn - (uint16_t)pointerFirstMessageChar;
+
+	return messageLength;
+}
+
+void SimModuleActivity::extractSmsMessageFromReponse2(char* response, char* messageBuffer, uint16_t messageLength)
+{
+	char* pointerFirstMessageChar = (strrchr(response, '"') + 3);
+
+	int i,j = 0;
+	do
+	{
+		j = i++;
+		messageBuffer[j] = pointerFirstMessageChar[j];
+	} while (messageBuffer[j] != '*' && j < messageLength);
+
+	messageBuffer[j] = '\0';
 }
 
 /// <summary>
@@ -547,7 +708,7 @@ char* SimModuleActivity::extractSmsMessageFromReponse(char* response)
 #endif
 		return '\0';
 	}
-	
+
 	/*char messageBuffer[messageLength];*/
 
 	for (int i = 0; i < messageLength; i++)
@@ -594,7 +755,7 @@ char* SimModuleActivity::subStringBetweenTags(char* p_string, char tag[1], uint1
 
 		}
 	}
-	uint8_t messageLength = (uint16_t)endPointer - (uint16_t)startPointer;
+	uint8_t messageLength = ((uint16_t)endPointer - (uint16_t)startPointer);
 	char* messageBuffer = {};
 	messageBuffer = (char*)calloc(messageLength, sizeof(char));
 	if (messageBuffer == nullptr)
@@ -613,7 +774,55 @@ char* SimModuleActivity::subStringBetweenTags(char* p_string, char tag[1], uint1
 	return messageBuffer;
 }
 
+char* SimModuleActivity::subStringBetweenTags2(char* p_string, char tag[1], uint16_t position, char* buffer)
+{
+	char* startPointer{};
+	char* endPointer{};
+	char* c[2]{};
+	if (position == 1 || position == 0) {
+		startPointer = p_string;
+		endPointer = (char*)strstr(p_string, tag);
+	}
+	else
+	{
+		for (int i = 0; i < position; i++)
+		{
+			char* index = (char*)strstr(p_string, tag) + 1;
+			p_string = (char*)index;
+			if (i == (position - 2))
+			{
+				c[0] = (char*)index;
+			}
+			if (i == (position - 1))
+			{
+				c[1] = (char*)index;
+			}
+			startPointer = c[0];
+			endPointer = c[1] - 1;
 
+		}
+	}
+	uint8_t messageLength = ((uint16_t)endPointer - (uint16_t)startPointer);
+
+	for (int i = 0; i < messageLength; i++)
+	{
+		buffer[i] = startPointer[i];
+	}
+	buffer[messageLength] = '\0';
+
+	return buffer;
+}
+
+bool SimModuleActivity::isCallerAuthorized(char* response, char* phoneNumberToCheck)
+{
+	char phoneNumber[30];
+	subStringBetweenTags2(response, "\"", 4, phoneNumber);
+	if (strcmp(phoneNumber, phoneNumberToCheck) == 0)
+	{
+		return true;
+	}
+	return false;
+}
 
 //void SimModuleActivity::makeCall(AvrMicroRepository& avrMicroRepository){
 //	avrMicroRepository.begin_m(this->_baud);

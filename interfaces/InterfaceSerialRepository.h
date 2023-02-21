@@ -12,7 +12,7 @@ public:
 
 	virtual void print_m(uint8_t data, bool isNewLine = false) = 0;
 
-	virtual uint8_t serial_available() = 0;
+	virtual int serial_available() = 0;
 
 /// <summary>
 /// assigne value to a char* pointer, after remeber to free memory.
@@ -24,6 +24,6 @@ public:
 
 	virtual void begin_m(unsigned long baud) = 0;
 
-	virtual int read() = 0;
+	virtual int read_m() = 0;
 };
 

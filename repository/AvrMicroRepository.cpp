@@ -83,7 +83,7 @@ void AvrMicroRepository::print_m(uint8_t data, bool isNewLine)
 //	delay(100);
 //}
 
-uint8_t AvrMicroRepository::serial_available()
+int AvrMicroRepository::serial_available()
 {
 	return Serial.available();
 }
@@ -93,7 +93,7 @@ void AvrMicroRepository::begin_m(unsigned long baud)
 	Serial.begin(baud);
 }
 
-int AvrMicroRepository::read() {
+int AvrMicroRepository::read_m() {
 	return Serial.read();
 }
 
