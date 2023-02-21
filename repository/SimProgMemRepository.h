@@ -6,7 +6,7 @@ class SimProgMemRepository
 {
 public:
 	SimProgMemRepository();
-	virtual void sendAtCommand(uint16_t index, InterfaceSerialRepository* repo);
+	/*virtual void sendAtCommand(uint16_t index, InterfaceSerialRepository* repo);*/
 	void getAtCommand(uint16_t index, char* atCommandbuffer, uint8_t atCommandBufferLenght);
 	void getSmsToFind(uint16_t index, char* responseDatabuffer, uint8_t responseDatabufferLenght);
 	uint16_t getProgMemSmsToFindLenght(uint16_t stringIndex);

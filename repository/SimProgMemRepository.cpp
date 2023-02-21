@@ -10,14 +10,14 @@ using namespace progmem::strings::atCommands::simModule;
 SimProgMemRepository::SimProgMemRepository(){
 }
 
-void SimProgMemRepository::sendAtCommand(uint16_t index,InterfaceSerialRepository* serialRepository)
-{
-	uint16_t arrayLength = getStringLength(simCommands, index);
-	char buffer[arrayLength];
-	fillStringBuffer(buffer, arrayLength, index, simCommands);
-	Serial.println(buffer);
-	serialRepository->print_m(buffer, true);
-}
+//void SimProgMemRepository::sendAtCommand(uint16_t index,InterfaceSerialRepository* serialRepository)
+//{
+//	uint16_t arrayLength = getStringLength(simCommands, index);
+//	char buffer[arrayLength];
+//	fillStringBuffer(buffer, arrayLength, index, simCommands);
+//	Serial.println(buffer);
+//	serialRepository->print_m(buffer, true);
+//}
 
 void SimProgMemRepository::getAtCommand(uint16_t index, char* atCommandbuffer, uint8_t atCommandBufferLenght)
 {
