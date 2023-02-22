@@ -46,18 +46,23 @@ char* SoftwareSerialRepository::readString_m() {
 
 void SoftwareSerialRepository::clearBuffer_m()
 {
-	char p[150];
-	_softwareSerial->readBytes(p, 127);
+	char buffer[_SS_MAX_RX_BUFF];
+	_softwareSerial->readBytes(buffer, _SS_MAX_RX_BUFF);
 	/*while () {
 		_softwareSerial->readString();
 	}
 	_softwareSerial->readString();*/
-
 	/*while (_softwareSerial->available() > 0) {
 		_softwareSerial->readString();
 	}
 	_softwareSerial->readString();*/
 }
+
+int SoftwareSerialRepository::get_SS_MAX_RX_BUFF()
+{
+	return _SS_MAX_RX_BUFF;
+}
+
 
 //void SoftwareSerialRepository::print_m(const char* data,bool isNewLine = false)
 //{

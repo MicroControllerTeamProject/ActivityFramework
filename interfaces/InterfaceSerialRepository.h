@@ -25,5 +25,7 @@ public:
 	virtual void begin_m(unsigned long baud) = 0;
 
 	virtual int read_m() = 0;
+
+	virtual int get_SS_MAX_RX_BUFF() = 0;
 };
 

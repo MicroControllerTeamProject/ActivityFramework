@@ -29,6 +29,8 @@ public:
 
 	virtual void clearBuffer_m();
 
+	virtual int get_SS_MAX_RX_BUFF();
+
 	virtual void begin_m(unsigned long baud);
 
 	virtual int read_m();

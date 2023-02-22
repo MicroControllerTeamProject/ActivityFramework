@@ -129,13 +129,13 @@ char* AvrMicroRepository::readString_m() {
 }
 
 
-void AvrMicroRepository::clearBuffer_m() {
-	delay(100);
-	while (Serial.available() > 0) {
-		Serial.readString();
-	}
-	Serial.readString();
-}
+//void AvrMicroRepository::clearBuffer_m() {
+//	delay(100);
+//	while (Serial.available() > 0) {
+//		Serial.readString();
+//	}
+//	Serial.readString();
+//}
 
 void AvrMicroRepository::pinMode_m(uint8_t pin, uint8_t mode)
 {
@@ -165,6 +165,25 @@ void AvrMicroRepository::tone_m(unsigned int pin, unsigned int frequency, unsign
 void AvrMicroRepository::notone_m(uint8_t pin)
 {
 	noTone(pin);
+}
+
+void AvrMicroRepository::clearBuffer_m()
+{
+	char buffer[SERIAL_RX_BUFFER_SIZE];
+	Serial.readBytes(buffer, SERIAL_RX_BUFFER_SIZE);
+	/*while () {
+		_softwareSerial->readString();
+	}
+	_softwareSerial->readString();*/
+	/*while (_softwareSerial->available() > 0) {
+		_softwareSerial->readString();
+	}
+	_softwareSerial->readString();*/
+}
+
+int AvrMicroRepository::get_SS_MAX_RX_BUFF()
+{
+	return SERIAL_RX_BUFFER_SIZE;
 }
 
 

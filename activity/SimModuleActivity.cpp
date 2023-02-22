@@ -31,155 +31,189 @@ SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleReposit
 SimModuleActivity::SimModuleActivity() {
 }
 
-bool SimModuleActivity::makeCall(char* deviceUId) {
-	bool returnValue = false;
-	for (int i = 0; i < this->_simModuleDevicesNumber; i++)
-	{
-		if (strcmp(this->_listOfSimModuleDevice[i]->getUid(), deviceUId) == 0)
-		{
-			/*this->_simModuleRepository->begin_m(this->_listOfSimModuleDevice[i]->getBaud());*/
-			char* bufferResponse;
-			this->_simModuleRepository->clearBuffer_m();
-			/*this->_simModuleRepository->print_m("atd"); this->_simModuleRepository->print_m(this->_simModuleRepository->print_m());*/
-			if (this->_simModuleRepository->serial_available())
-			{
-				bufferResponse = this->_simModuleRepository->readString_m();
-				char* findInResponse;
-				/*findInResponse = strstr(bufferResponse, "ERROR");
-				if (findInResponse != NULL)
-				{
-					this->setLastErrorCode('E');
-				}
-				findInResponse = strstr(bufferResponse, "DIALTONE");
-				if (findInResponse != NULL)
-				{
-					this->setLastErrorCode('D');
-				}*/
-				findInResponse = strstr(bufferResponse, "OK");
-				if (findInResponse != NULL)
-				{
-					returnValue = true;
-				}
-				/*else
-				{
-					this->setLastErrorCode('N');
-				}*/
-				//#if defined(VM_DEBUG)
-				//		avrMicroRepository.print_m("returned internal value : "); avrMicroRepository.print_m(bufferResponse, true);
-				//		avrMicroRepository.clearBuffer_m();
-				//#endif
-
-				//#if defined(VM_DEBUG)
-				//		avrMicroRepository.print_m("ram b:"); avrMicroRepository.print_m(avrMicroRepository.getFreeRam(), true);
-				//		avrMicroRepository.clearBuffer_m();
-				//#endif
-
-				this->avrMicroRepository->free_m(bufferResponse);
-				this->avrMicroRepository->delaym(2000);
-			}
-		}
-		//	char* bufferResponse;
-		//	this->simModuleRepository->clearBuffer_m();
-		//	this->simModuleRepository->print_m("atd"); this->simModuleRepository->print_m(this->_prefixAndphoneNumber, true);
-		//	if (avrMicroRepository.serial_available())
-		//	{
-		//		bufferResponse = avrMicroRepository.readString_m();
-		//		char* findInResponse; 
-		//		/*findInResponse = strstr(bufferResponse, "ERROR");
-		//		if (findInResponse != NULL)
-		//		{
-		//			this->setLastErrorCode('E');
-		//		}
-		//		findInResponse = strstr(bufferResponse, "DIALTONE");
-		//		if (findInResponse != NULL)
-		//		{
-		//			this->setLastErrorCode('D');
-		//		}*/
-		//		findInResponse = strstr(bufferResponse, "OK");
-		//		if (findInResponse != NULL)
-		//		{
-		//			returnValue = true;
-		//		}
-		//		/*else
-		//		{
-		//			this->setLastErrorCode('N');
-		//		}*/
-		////#if defined(VM_DEBUG)
-		////		avrMicroRepository.print_m("returned internal value : "); avrMicroRepository.print_m(bufferResponse, true);
-		////		avrMicroRepository.clearBuffer_m();
-		////#endif
-		//
-		////#if defined(VM_DEBUG)
-		////		avrMicroRepository.print_m("ram b:"); avrMicroRepository.print_m(avrMicroRepository.getFreeRam(), true);
-		////		avrMicroRepository.clearBuffer_m();
-		////#endif
-		//
-		//		avrMicroRepository.free_m(bufferResponse);
-		//		avrMicroRepository.delaym(2000);
-	}
-	//#if defined(VM_DEBUG)
-	//	avrMicroRepository.print_m("ram pointerOfCReturn:"); avrMicroRepository.print_m(avrMicroRepository.getFreeRam(), true);
-	//	avrMicroRepository.clearBuffer_m();
-	//#endif
-	return returnValue;
-}
-
-char* SimModuleActivity::makeCall()
+void SimModuleActivity::makeCall(char buffer[], uint8_t bufferLenght)
 {
-	//char* returnValue = "XXX";
-	char* bufferResponse;
-	/*this->_simModuleRepository->print_m("AT",true);*/
-	//this->avrMicroRepository->delaym(1000);
 	this->_simModuleRepository->clearBuffer_m();
-	//this->avrMicroRepository->delaym(1000);
-	//this->_simModuleRepository->print_m("atd+393202445649;",true);
-	this->_simModuleRepository->print_m("atd"); this->_simModuleRepository->print_m(this->_listOfSimModuleDevice[0]->getPrefixNumber()); this->_simModuleRepository->print_m(this->_listOfSimModuleDevice[0]->getPhoneNumber(), true);
+
+	/*for (size_t i = 0; i < bufferLenght; i++)
+	{
+		Serial.print(buffer[i], 10);
+	}*/
+
+	this->_simModuleRepository->print_m("atd");
+	this->_simModuleRepository->print_m(this->_listOfSimModuleDevice[0]->getPrefixNumber());
+	this->_simModuleRepository->print_m(this->_listOfSimModuleDevice[0]->getPhoneNumber(), true);
 
 	this->avrMicroRepository->delaym(5000);
 
-	if (this->_simModuleRepository->serial_available())
+	buffer[0] = '\0';
+
+	if (this->_simModuleRepository->serial_available() > 0)
 	{
-		bufferResponse = this->_simModuleRepository->readString_m();
-		//strcpy(returnValue, bufferResponse);
+		int j = 0;
+		int i = 0;
+		do {
+			j = i++;
+			buffer[j] = this->_simModuleRepository->read_m();
+		/*	Serial.print(buffer[j]); Serial.print("   "); Serial.println((buffer[j],10));*/
+		} while ((buffer[j] >= 0 && buffer[j] <= 127) && j < bufferLenght);
+		buffer[j] = '\0';
 
-//#ifdef _DEBUG
-//		Serial.println(bufferResponse);
-//#endif
-		//char* findInResponse;
-		///*findInResponse = strstr(bufferResponse, "ERROR");
-		//if (findInResponse != NULL)
-		//{
-		//	this->setLastErrorCode('E');
-		//}
-		//findInResponse = strstr(bufferResponse, "DIALTONE");
-		//if (findInResponse != NULL)
-		//{
-		//	this->setLastErrorCode('D');
-		//}*/
-		//findInResponse = strstr(bufferResponse, "OK");
-		//if (findInResponse != NULL)
-		//{
-		//	returnValue = true;
-		//}
-		/*else
-		{
-			this->setLastErrorCode('N');
-		}*/
-		//#if defined(VM_DEBUG)
-		//		avrMicroRepository.print_m("returned internal value : "); avrMicroRepository.print_m(bufferResponse, true);
-		//		avrMicroRepository.clearBuffer_m();
-		//#endif
-		//#if defined(VM_DEBUG)
-		//		avrMicroRepository.print_m("ram b:"); avrMicroRepository.print_m(avrMicroRepository.getFreeRam(), true);
-		//		avrMicroRepository.clearBuffer_m();
-		//#endif
-
-		/*this->avrMicroRepository->free_m(bufferResponse);*/
-		this->avrMicroRepository->delaym(2000);
+		//Serial.println(F("buffer : ")); Serial.println(buffer);
 	}
-
-	return bufferResponse;
 }
+
+//bool SimModuleActivity::makeCall(char* deviceUId) {
+//	bool returnValue = false;
+//	for (int i = 0; i < this->_simModuleDevicesNumber; i++)
+//	{
+//		if (strcmp(this->_listOfSimModuleDevice[i]->getUid(), deviceUId) == 0)
+//		{
+//			/*this->_simModuleRepository->begin_m(this->_listOfSimModuleDevice[i]->getBaud());*/
+//			char* bufferResponse;
+//			this->_simModuleRepository->clearBuffer_m();
+//			/*this->_simModuleRepository->print_m("atd"); this->_simModuleRepository->print_m(this->_simModuleRepository->print_m());*/
+//			if (this->_simModuleRepository->serial_available())
+//			{
+//				bufferResponse = this->_simModuleRepository->readString_m();
+//				char* findInResponse;
+//				/*findInResponse = strstr(bufferResponse, "ERROR");
+//				if (findInResponse != NULL)
+//				{
+//					this->setLastErrorCode('E');
+//				}
+//				findInResponse = strstr(bufferResponse, "DIALTONE");
+//				if (findInResponse != NULL)
+//				{
+//					this->setLastErrorCode('D');
+//				}*/
+//				findInResponse = strstr(bufferResponse, "OK");
+//				if (findInResponse != NULL)
+//				{
+//					returnValue = true;
+//				}
+//				/*else
+//				{
+//					this->setLastErrorCode('N');
+//				}*/
+//				//#if defined(VM_DEBUG)
+//				//		avrMicroRepository.print_m("returned internal value : "); avrMicroRepository.print_m(bufferResponse, true);
+//				//		avrMicroRepository.clearBuffer_m();
+//				//#endif
+//
+//				//#if defined(VM_DEBUG)
+//				//		avrMicroRepository.print_m("ram b:"); avrMicroRepository.print_m(avrMicroRepository.getFreeRam(), true);
+//				//		avrMicroRepository.clearBuffer_m();
+//				//#endif
+//
+//				this->avrMicroRepository->free_m(bufferResponse);
+//				this->avrMicroRepository->delaym(2000);
+//			}
+//		}
+//		//	char* bufferResponse;
+//		//	this->simModuleRepository->clearBuffer_m();
+//		//	this->simModuleRepository->print_m("atd"); this->simModuleRepository->print_m(this->_prefixAndphoneNumber, true);
+//		//	if (avrMicroRepository.serial_available())
+//		//	{
+//		//		bufferResponse = avrMicroRepository.readString_m();
+//		//		char* findInResponse; 
+//		//		/*findInResponse = strstr(bufferResponse, "ERROR");
+//		//		if (findInResponse != NULL)
+//		//		{
+//		//			this->setLastErrorCode('E');
+//		//		}
+//		//		findInResponse = strstr(bufferResponse, "DIALTONE");
+//		//		if (findInResponse != NULL)
+//		//		{
+//		//			this->setLastErrorCode('D');
+//		//		}*/
+//		//		findInResponse = strstr(bufferResponse, "OK");
+//		//		if (findInResponse != NULL)
+//		//		{
+//		//			returnValue = true;
+//		//		}
+//		//		/*else
+//		//		{
+//		//			this->setLastErrorCode('N');
+//		//		}*/
+//		////#if defined(VM_DEBUG)
+//		////		avrMicroRepository.print_m("returned internal value : "); avrMicroRepository.print_m(bufferResponse, true);
+//		////		avrMicroRepository.clearBuffer_m();
+//		////#endif
+//		//
+//		////#if defined(VM_DEBUG)
+//		////		avrMicroRepository.print_m("ram b:"); avrMicroRepository.print_m(avrMicroRepository.getFreeRam(), true);
+//		////		avrMicroRepository.clearBuffer_m();
+//		////#endif
+//		//
+//		//		avrMicroRepository.free_m(bufferResponse);
+//		//		avrMicroRepository.delaym(2000);
+//	}
+//	//#if defined(VM_DEBUG)
+//	//	avrMicroRepository.print_m("ram pointerOfCReturn:"); avrMicroRepository.print_m(avrMicroRepository.getFreeRam(), true);
+//	//	avrMicroRepository.clearBuffer_m();
+//	//#endif
+//	return returnValue;
+//}
+//
+//char* SimModuleActivity::makeCall()
+//{
+//	//char* returnValue = "XXX";
+//	char* bufferResponse;
+//	///*this->_simModuleRepository->print_m("AT",true);*/
+//	////this->avrMicroRepository->delaym(1000);
+//	this->_simModuleRepository->clearBuffer_m();
+//	//this->avrMicroRepository->delaym(1000);
+//	//this->_simModuleRepository->print_m("atd+393202445649;",true);
+//	this->_simModuleRepository->print_m("atd"); 
+//	this->_simModuleRepository->print_m(this->_listOfSimModuleDevice[0]->getPrefixNumber()); 
+//	this->_simModuleRepository->print_m(this->_listOfSimModuleDevice[0]->getPhoneNumber(), true);
+//
+//	this->avrMicroRepository->delaym(5000);
+//
+//	if (this->_simModuleRepository->serial_available())
+//	{
+//		bufferResponse = this->_simModuleRepository->readString_m();
+//		//strcpy(returnValue, bufferResponse);
+//
+////#ifdef _DEBUG
+////		Serial.println(bufferResponse);
+////#endif
+//		//char* findInResponse;
+//		///*findInResponse = strstr(bufferResponse, "ERROR");
+//		//if (findInResponse != NULL)
+//		//{
+//		//	this->setLastErrorCode('E');
+//		//}
+//		//findInResponse = strstr(bufferResponse, "DIALTONE");
+//		//if (findInResponse != NULL)
+//		//{
+//		//	this->setLastErrorCode('D');
+//		//}*/
+//		//findInResponse = strstr(bufferResponse, "OK");
+//		//if (findInResponse != NULL)
+//		//{
+//		//	returnValue = true;
+//		//}
+//		/*else
+//		{
+//			this->setLastErrorCode('N');
+//		}*/
+//		//#if defined(VM_DEBUG)
+//		//		avrMicroRepository.print_m("returned internal value : "); avrMicroRepository.print_m(bufferResponse, true);
+//		//		avrMicroRepository.clearBuffer_m();
+//		//#endif
+//		//#if defined(VM_DEBUG)
+//		//		avrMicroRepository.print_m("ram b:"); avrMicroRepository.print_m(avrMicroRepository.getFreeRam(), true);
+//		//		avrMicroRepository.clearBuffer_m();
+//		//#endif
+//
+//		/*this->avrMicroRepository->free_m(bufferResponse);*/
+//		this->avrMicroRepository->delaym(2000);
+//	}
+//
+//	return bufferResponse;
+//}
 
 void SimModuleActivity::setIsDisableSms(bool isSmsDisabled)
 {
