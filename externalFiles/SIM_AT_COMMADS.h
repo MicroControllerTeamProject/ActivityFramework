@@ -28,7 +28,9 @@ namespace progmem
 					//index 71
 					"AT+CMGD=1,4\0"
 					//index 83
-					"AT+CMGR=1\0";
+					"AT+CMGR=1\0"
+					//index 93
+					"ATD\0";
 			}
 		}
 	}

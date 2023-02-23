@@ -34,13 +34,10 @@ SimModuleActivity::SimModuleActivity() {
 void SimModuleActivity::makeCall(char buffer[], uint8_t bufferLenght)
 {
 	this->_simModuleRepository->clearBuffer_m();
-
-	/*for (size_t i = 0; i < bufferLenght; i++)
-	{
-		Serial.print(buffer[i], 10);
-	}*/
-
-	this->_simModuleRepository->print_m("atd");
+	uint16_t l= this->_simProgMemRepository->getAtCommandIndexLengthString(93);
+	char atdCommand[l];
+	this->_simProgMemRepository->getAtCommand(93, atdCommand, l);
+	this->_simModuleRepository->print_m(atdCommand);
 	this->_simModuleRepository->print_m(this->_listOfSimModuleDevice[0]->getPrefixNumber());
 	this->_simModuleRepository->print_m(this->_listOfSimModuleDevice[0]->getPhoneNumber(), true);
 
@@ -55,7 +52,6 @@ void SimModuleActivity::makeCall(char buffer[], uint8_t bufferLenght)
 		do {
 			j = i++;
 			buffer[j] = this->_simModuleRepository->read_m();
-		/*	Serial.print(buffer[j]); Serial.print("   "); Serial.println((buffer[j],10));*/
 		} while ((buffer[j] >= 0 && buffer[j] <= 127) && j < bufferLenght);
 		buffer[j] = '\0';
 		//Serial.println(F("buffer : ")); Serial.println(buffer);
@@ -162,12 +158,58 @@ uint8_t SimModuleActivity::getNumberOfSmsReceived()
 	return messageNumbers;
 }
 
+
+//uint8_t SimModuleActivity::getNumberOfSmsReceived()
+//{
+//	char* endOfPointer = {};
+//
+//	uint8_t messageNumbers = 0;
+//
+//	this->_simModuleRepository->clearBuffer_m();
+//
+//	sendProgMemAtCommand(34);
+//
+//	delay(1000);
+//
+//	uint8_t l = this->_simModuleRepository->get_SS_MAX_RX_BUFF();
+//
+//	char bufferP[l];
+//
+//	if (this->_simModuleRepository->serial_available() > 0)
+//	{
+//		int j = 0;
+//
+//		int i = 0;
+//
+//		do {
+//			j = i++;
+//			bufferP[j] = this->_simModuleRepository->read_m();
+//			/*	Serial.print(buffer[j]); Serial.print("   "); Serial.println((buffer[j],10));*/
+//		} while ((bufferP[j] >= 0 && bufferP[j] <= 127) && j < l);
+//		bufferP[j] = '\0';
+//		//Serial.println(F("buffer : ")); Serial.println(buffer);
+//	}
+//			char secondCommaFound[] = { strchr(bufferP, ',')[2] };
+//
+//			if (strcmp(secondCommaFound, ",") == 0)
+//			{
+//				endOfPointer = ((strchr(bufferP, ',') + 2));
+//			}
+//			else {
+//				endOfPointer = ((strchr(bufferP, ',') + 3));
+//			}
+//			messageNumbers = strtol(((strchr(bufferP, ',') + 1)), &endOfPointer, 10);
+//			//Serial.print("number : "); Serial.println(messageNumbers);
+//
+//	return messageNumbers;
+//}
+
 void SimModuleActivity::sendProgMemAtCommand(uint16_t progMemIndex)
 {
 	uint16_t commProgMemLenght =  this->_simProgMemRepository->getAtCommandIndexLengthString(progMemIndex);
 	char commandBuffer[commProgMemLenght];
 	this->_simProgMemRepository->getAtCommand(progMemIndex, commandBuffer, commProgMemLenght);
-	Serial.print(F("buffer command : ")); Serial.println(commandBuffer);
+	//Serial.print(F("buffer command : ")); Serial.println(commandBuffer);
 	this->_simModuleRepository->print_m(commandBuffer);
 
 }
@@ -191,8 +233,7 @@ void SimModuleActivity::enableSmsIncoming()
 }
 
 void SimModuleActivity::deleteAllSMS() {
-
-	this->_simModuleRepository->print_m("AT+CMGD=1,4", true);
+	sendProgMemAtCommand(71);
 }
 
 void SimModuleActivity::deleteSmsByIndex(uint8_t index)
@@ -203,7 +244,11 @@ void SimModuleActivity::deleteSmsByIndex(uint8_t index)
 
 	itoa(index, smsIndex, 10);
 
-	char readMessageInStoreString[15] = "AT+CMGD=";
+	uint8_t l = this->_simProgMemRepository->getAtCommandIndexLengthString(59);
+
+	char readMessageInStoreString[l];
+
+	this->_simProgMemRepository->getAtCommand(59, readMessageInStoreString, l);
 
 	strcat(readMessageInStoreString, smsIndex);
 
@@ -220,7 +265,11 @@ void SimModuleActivity::getSmsByIndex(uint8_t index)
 
 	itoa(index, smsIndex,10);
 
-	char readMessageInStoreString[15] = "AT+CMGR=";
+	uint8_t l = this->_simProgMemRepository->getAtCommandIndexLengthString(43);
+
+	char readMessageInStoreString[l];
+
+	this->_simProgMemRepository->getAtCommand(43, readMessageInStoreString, l);
 
 	strcat(readMessageInStoreString, smsIndex);
 
@@ -274,7 +323,13 @@ bool SimModuleActivity::getSmsResponse(char* bufferP, uint16_t bufferLenght)
 	//}
 	//bufferP[i + 1] = '\0';
 
-	if (strstr(bufferP, "+CMGR:") != nullptr)
+	uint16_t l = this->_simProgMemRepository->getAtCommandIndexLengthString(52);
+
+	char sToFind[l];
+
+	this->_simProgMemRepository->getAtCommand(52,sToFind,l);
+
+	if (strstr(bufferP, sToFind) != nullptr)
 	{
 		return true;
 	}
@@ -325,11 +380,6 @@ void SimModuleActivity::extractSmsMessageFromReponse(char* response, char* messa
 
 	messageBuffer[j] = '\0';
 }
-
-//char* SimModuleActivity::extractSmsCallerFromReponse(char* response)
-//{
-//	return subStringBetweenTags(response, "\"", 4);
-//}
 
 char* SimModuleActivity::subStringBetweenTags(char* p_string, char tag[1], uint16_t position, char* buffer)
 {
