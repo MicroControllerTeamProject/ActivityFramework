@@ -40,6 +40,8 @@ public:
 
 	bool getSmsResponse(char* bufferP, uint16_t bufferLenght);
 
+	bool isSmsOnBuffer(char* response, uint16_t progMemIndex);
+
 	void deleteSmsByIndex(uint8_t index);
 
 
