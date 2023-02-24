@@ -33,6 +33,7 @@ SimModuleActivity::SimModuleActivity() {
 
 void SimModuleActivity::makeCall(char buffer[], uint8_t bufferLenght)
 {
+	
 	this->_simModuleRepository->clearBuffer_m();
 	uint16_t l= this->_simProgMemRepository->getAtCommandIndexLengthString(93);
 	char atdCommand[l];
@@ -127,7 +128,7 @@ uint8_t SimModuleActivity::getNumberOfSmsReceived()
 
 	this->_simModuleRepository->print_m("AT+CPMS?", true);
 
-	delay(1000);
+	this->avrMicroRepository->delaym(1000);
 
 	if (this->_simModuleRepository->serial_available() > 0)
 	{
@@ -342,7 +343,7 @@ bool SimModuleActivity::isSmsOnBuffer(char* response,uint16_t progMemIndex)
 
 	extractSmsMessageFromReponse(response, message, 15);
 	
-	uint8_t l = this->_simProgMemRepository->getProgMemSmsToFindLenght(0);
+	uint8_t l = this->_simProgMemRepository->getProgMemSmsToFindLenght(progMemIndex);
 	
 	char b[l];
 	
