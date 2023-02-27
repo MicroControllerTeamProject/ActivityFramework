@@ -1,5 +1,6 @@
 #include "SimModuleActivity.h"
 
+
 #ifdef _DEBUG
 #include <Arduino.h>
 #endif
@@ -35,11 +36,11 @@ void SimModuleActivity::makeCall(char buffer[], uint8_t bufferLenght)
 {
 	
 	this->_simModuleRepository->clearBuffer_m();
-	uint16_t l= this->_simProgMemRepository->getAtCommandIndexLengthString(93);
-	char atdCommand[l];
-	this->_simProgMemRepository->getAtCommand(93, atdCommand, l);
-	this->_simModuleRepository->print_m(atdCommand);
-	this->_simModuleRepository->print_m(this->_listOfSimModuleDevice[0]->getPrefixNumber());
+	//const uint16_t l = this->_simProgMemRepository->getAtCommandIndexLengthString(93);
+	char atdCommand[20];
+	this->_simProgMemRepository->getAtCommand(93, atdCommand, 20);
+	this->_simModuleRepository->print_m(atdCommand,false);
+	this->_simModuleRepository->print_m(this->_listOfSimModuleDevice[0]->getPrefixNumber(),false);
 	this->_simModuleRepository->print_m(this->_listOfSimModuleDevice[0]->getPhoneNumber(), true);
 
 	this->avrMicroRepository->delaym(5000);
@@ -207,9 +208,9 @@ uint8_t SimModuleActivity::getNumberOfSmsReceived()
 
 void SimModuleActivity::sendProgMemAtCommand(uint16_t progMemIndex)
 {
-	uint16_t commProgMemLenght =  this->_simProgMemRepository->getAtCommandIndexLengthString(progMemIndex);
-	char commandBuffer[commProgMemLenght];
-	this->_simProgMemRepository->getAtCommand(progMemIndex, commandBuffer, commProgMemLenght);
+	//const uint16_t commProgMemLenght =  this->_simProgMemRepository->getAtCommandIndexLengthString(progMemIndex);
+	char commandBuffer[20];
+	this->_simProgMemRepository->getAtCommand(progMemIndex, commandBuffer, 20);
 	//Serial.print(F("buffer command : ")); Serial.println(commandBuffer);
 	this->_simModuleRepository->print_m(commandBuffer);
 
@@ -241,17 +242,21 @@ void SimModuleActivity::deleteSmsByIndex(uint8_t index)
 {
 	this->_simModuleRepository->clearBuffer_m();
 
-	char smsIndex[] = {};
+	char number[2] = { index + 48 ,'\0'};
 
-	itoa(index, smsIndex, 10);
+	
 
-	uint8_t l = this->_simProgMemRepository->getAtCommandIndexLengthString(59);
+	/*char smsIndex[5] = {};
 
-	char readMessageInStoreString[l];
+	itoa(index, smsIndex, 10);*/
 
-	this->_simProgMemRepository->getAtCommand(59, readMessageInStoreString, l);
+	//uint8_t l = this->_simProgMemRepository->getAtCommandIndexLengthString(59);
 
-	strcat(readMessageInStoreString, smsIndex);
+	char readMessageInStoreString[20];
+
+	this->_simProgMemRepository->getAtCommand(59, readMessageInStoreString, 20);
+
+	strcat(readMessageInStoreString, number);
 
 	this->_simModuleRepository->print_m(readMessageInStoreString, true);
 
@@ -262,17 +267,19 @@ void SimModuleActivity::getSmsByIndex(uint8_t index)
 {
 	this->_simModuleRepository->clearBuffer_m();
 
-    char smsIndex[] = {};
+	char number[2] = { index + 48 ,'\0' };
 
-	itoa(index, smsIndex,10);
+  /*  char smsIndex[5] = {};
 
-	uint8_t l = this->_simProgMemRepository->getAtCommandIndexLengthString(43);
+	itoa(index, smsIndex,10);*/
 
-	char readMessageInStoreString[l];
+	//const uint8_t l = this->_simProgMemRepository->getAtCommandIndexLengthString(43);
 
-	this->_simProgMemRepository->getAtCommand(43, readMessageInStoreString, l);
+	char readMessageInStoreString[20];
 
-	strcat(readMessageInStoreString, smsIndex);
+	this->_simProgMemRepository->getAtCommand(43, readMessageInStoreString, 20);
+
+	strcat(readMessageInStoreString, number);
 
 	this->_simModuleRepository->print_m(readMessageInStoreString, true);
 
@@ -324,11 +331,11 @@ bool SimModuleActivity::getSmsResponse(char* bufferP, uint16_t bufferLenght)
 	//}
 	//bufferP[i + 1] = '\0';
 
-	uint16_t l = this->_simProgMemRepository->getAtCommandIndexLengthString(52);
+	//const uint16_t l = this->_simProgMemRepository->getAtCommandIndexLengthString(52);
 
-	char sToFind[l];
+	char sToFind[20];
 
-	this->_simProgMemRepository->getAtCommand(52,sToFind,l);
+	this->_simProgMemRepository->getAtCommand(52,sToFind,20);
 
 	if (strstr(bufferP, sToFind) != nullptr)
 	{
@@ -337,23 +344,23 @@ bool SimModuleActivity::getSmsResponse(char* bufferP, uint16_t bufferLenght)
 	return false;
 }
 
-bool SimModuleActivity::isSmsOnBuffer(char* response,uint16_t progMemIndex)
+bool SimModuleActivity::isSmsOnBuffer(char* response,uint16_t progMemIndex,const uint8_t maxMessageLenght)
 {
-	char message[15]{};
+	char message[20];
 
-	extractSmsMessageFromReponse(response, message, 15);
+	extractSmsMessageFromReponse(response, message, 20);
 	
-	uint8_t l = this->_simProgMemRepository->getProgMemSmsToFindLenght(progMemIndex);
+	//const uint8_t l = this->_simProgMemRepository->getProgMemSmsToFindLenght(progMemIndex);
 	
-	char b[l];
+	char b[20];
 	
-	this->_simProgMemRepository->getSmsToFind(0, b, l);
-	
+	char* g = this->_simProgMemRepository->getSmsToFind(progMemIndex, b, 20);
+
 	//Serial.print(F("progmem : ")); Serial.println(strlen(b));
 
 	//Serial.print(F("message : ")); Serial.println(strlen(message));
 
-	if (strcmp(b, message) == 0)
+	if (strcmp(g, message) == 0)
 	{
 		//Serial.println(F("message found"));
 		return true;

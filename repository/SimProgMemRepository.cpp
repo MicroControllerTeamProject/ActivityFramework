@@ -1,4 +1,5 @@
 #include "SimProgMemRepository.h"
+#include <avr/pgmspace.h>
 
 #include "..\externalFiles\SIM_AT_COMMADS.h"
 #include "..\externalFiles\SIM_RESPONSE_DATA.h"
@@ -24,32 +25,33 @@ void SimProgMemRepository::getAtCommand(uint16_t index, char* atCommandbuffer, u
 	fillStringBuffer(atCommandbuffer, atCommandBufferLenght, index, simCommands);
 }
 
-uint16_t SimProgMemRepository::getAtCommandIndexLengthString(uint16_t stringIndex)
+const uint16_t SimProgMemRepository::getAtCommandIndexLengthString(uint16_t stringIndex)
 {
 	return getStringLength(simCommands, stringIndex);
 }
 
-uint16_t SimProgMemRepository::getProgMemSmsToFindLenght(uint16_t stringIndex)
+const uint16_t SimProgMemRepository::getProgMemSmsToFindLenght(uint16_t stringIndex)
 {
 	return getStringLength(simResponseData, stringIndex);
 }
 
-void SimProgMemRepository::getSmsToFind(uint16_t index, char* responseDatabuffer,uint8_t responseDatabufferLenght)
+char* SimProgMemRepository::getSmsToFind(uint16_t index, char* responseDatabuffer,uint8_t responseDatabufferLenght)
 {
-	fillStringBuffer(responseDatabuffer, responseDatabufferLenght, index, simResponseData);
+	return fillStringBuffer(responseDatabuffer, responseDatabufferLenght, index, simResponseData);
 }
 
-uint16_t SimProgMemRepository::getStringLength(PROGMEM const char preogMemString[],  uint16_t index){
+const uint16_t SimProgMemRepository::getStringLength(const char preogMemString[],  uint16_t index){
 	return strlen_P(preogMemString + index) + 1;
 }
 
-void SimProgMemRepository::fillStringBuffer(char buffer[], uint16_t length, uint16_t index, PROGMEM const char preogMemString[]) {
+char* SimProgMemRepository::fillStringBuffer(char buffer[], uint16_t length, uint16_t index, const char preogMemString[]) {
 	for (int i = 0; i < length - 1; i++)
 	{
 		char charInString = pgm_read_word(&preogMemString[index + i]);
 		buffer[i] = charInString;
 	}
 	buffer[length - 1] = '\0';
+	return buffer;
 }
 
 

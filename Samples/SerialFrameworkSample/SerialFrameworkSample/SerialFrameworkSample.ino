@@ -108,10 +108,10 @@ void receiveSmsTest()
 			{
 				Serial.println(F("caller is authorized"));
 
-				if (simModuleActivity1.isSmsOnBuffer(response, 0))
+				if (simModuleActivity1.isSmsOnBuffer(response, 0,5))
 				{
 					Serial.println(F("do somethink for 0 command"));
-					callTest();
+					//callTest();
 				}
 			}
 			simModuleActivity1.deleteSmsByIndex(i);

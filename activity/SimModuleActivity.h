@@ -1,11 +1,11 @@
 #pragma once
 #include "DeviceActivity.h"
-#include <stdint.h>
-#include <string.h>
 #include "..\objectsSensor\SimModuleDevice.h"
 #include "..\interfaces\InterfaceSerialRepository.h"
-#include "..\interfaces\InterfaceMicroRepository.h"
 #include "..\repository\SimProgMemRepository.h"
+#include <stdint.h>
+#include <string.h>
+#include <stdlib.h>
 
 
 class SimModuleActivity : public DeviceActivity
@@ -40,7 +40,7 @@ public:
 
 	bool getSmsResponse(char* bufferP, uint16_t bufferLenght);
 
-	bool isSmsOnBuffer(char* response, uint16_t progMemIndex);
+	bool isSmsOnBuffer(char* response, uint16_t progMemIndex, uint8_t maxMessageLenght);
 
 	void deleteSmsByIndex(uint8_t index);
 
@@ -57,6 +57,6 @@ private:
 	bool _isCallDisable = false;
 	bool _isTurnedOff = false;
 	bool _isInSleepMode = false;
-	long unsigned _baud;
+	long unsigned _baud = 0;
 };
 

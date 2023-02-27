@@ -17,11 +17,11 @@ public:
 	
 	virtual void print_m(const char* data, bool isNewLine = false);
 
-	virtual void print_m(float data, bool isNewLine = false);
+	//virtual void print_m(float data, bool isNewLine = false);
 
-	virtual void print_m(int data, bool isNewLine = false);
+	//virtual void print_m(int data, bool isNewLine = false);
 
-	virtual void print_m(uint8_t data, bool isNewLine = false);
+	//virtual void print_m(uint8_t data, bool isNewLine = false);
 
 	virtual int serial_available();
 

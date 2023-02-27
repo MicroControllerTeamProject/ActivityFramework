@@ -79,13 +79,13 @@ int SoftwareSerialRepository::get_SS_MAX_RX_BUFF()
 //
 //}
 
-void SoftwareSerialRepository::print_m(int data, bool isNewLine)
-{
-}
-
-void SoftwareSerialRepository::print_m(uint8_t data, bool isNewLine)
-{
-}
+//void SoftwareSerialRepository::print_m(int data, bool isNewLine)
+//{
+//}
+////
+//void SoftwareSerialRepository::print_m(uint8_t data, bool isNewLine)
+//{
+//}
 
 void SoftwareSerialRepository::print_m(const char* data, bool isNewLine = false)
 {
@@ -93,10 +93,10 @@ void SoftwareSerialRepository::print_m(const char* data, bool isNewLine = false)
 	if (isNewLine)_softwareSerial->println();
 }
 
-void SoftwareSerialRepository::print_m(float data, bool isNewLine = false)
-{
-		_softwareSerial->println(data);
-}
+//void SoftwareSerialRepository::print_m(float data, bool isNewLine = false)
+//{
+//		_softwareSerial->println(data);
+//}
 
 int SoftwareSerialRepository::serial_available(){
 	return _softwareSerial->available();
