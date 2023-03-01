@@ -13,6 +13,8 @@
 #include "\Repos\MicroControllerTeamProject\ActivityFramework\interfaces\InterfaceSerialRepository.h"
 #include "\Repos\MicroControllerTeamProject\ActivityFramework\repository\SimProgMemRepository.h"
 
+//lsg modify
+
 //#define PREFIX "+39"
 //#define PHONENUMBER "3202445649;"
 
