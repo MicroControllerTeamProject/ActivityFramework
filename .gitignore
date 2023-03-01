@@ -8,3 +8,4 @@ Samples/SerialFrameworkSample/SerialFrameworkSample/__vm/
 Samples/SerialFrameworkSample/SerialFrameworkSample_Test/SerialFrameworkSample_Test.vcxproj.filters
 Samples/x64/
 *.filters
+Samples/SerialFrameworkSample/SerialFrameworkSample_Test/SerialFrameworkSample_Test.vcxproj.user
