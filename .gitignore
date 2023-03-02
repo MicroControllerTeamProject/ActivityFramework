@@ -5,6 +5,5 @@ Samples/voltageActivitySample/obj/
 Samples/SerialFrameworkSample/SerialFrameworkSample/obj/
 Samples/SerialFrameworkSample/SerialFrameworkSample_Test/x64/
 Samples/SerialFrameworkSample/SerialFrameworkSample/__vm/
-Samples/SerialFrameworkSample/SerialFrameworkSample_Test/SerialFrameworkSample_Test.vcxproj.filters
 Samples/x64/
-*.filters
+
