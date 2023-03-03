@@ -11,7 +11,7 @@
 class DeviceActivity
 {
 public:
-	DeviceActivity(AvrMicroRepository& avrMicroRepository, DigitalPortSensor** listOfdigitalPortSensors,uint8_t digitalPortSensorsNumber);
+	/*DeviceActivity(AvrMicroRepository& avrMicroRepository, DigitalPortSensor** listOfdigitalPortSensors,uint8_t digitalPortSensorsNumber);*/
 	DeviceActivity(AvrMicroRepository& avrMicroRepository, AnalogPortSensor** listOfAnalogPortSensor,float _vref ,commonsLayer::analogRefMode mode, uint8_t analogPortSensorsNumber);
 	
 	DeviceActivity(AvrMicroRepository& avrMicroRepository, DigitalPortSensor digitalPortSensor);
@@ -30,7 +30,7 @@ private:
 	
 protected:
 	AvrMicroRepository* avrMicroRepository = nullptr;
-	bool isDigitalPortOnAlarm(char* portName);
+	bool isDigitalPortOnAlarm();
 	bool isAnalogPortOnAlarm(char* portName);
 	DigitalPortSensor* _digitalPortSensor = nullptr;
 	AnalogPortSensor** _listOfAnalogPortSensors = nullptr;

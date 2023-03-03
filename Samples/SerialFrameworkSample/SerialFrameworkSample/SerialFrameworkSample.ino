@@ -13,26 +13,12 @@
 #include "\Repos\MicroControllerTeamProject\ActivityFramework\interfaces\InterfaceSerialRepository.h"
 #include "\Repos\MicroControllerTeamProject\ActivityFramework\repository\SimProgMemRepository.h"
 
-//lsg modify
-
-//#define PREFIX "+39"
-//#define PHONENUMBER "3202445649;"
-
-//const char StringPtr[] = "string0";
-
 SimModuleDevice simModuleDevice;
 DigitalPort listOfPortsForSimModule[1];
-SimModuleActivity simModuleActivity1;
+SimModuleActivity simModuleActivity;
 AvrMicroRepository  avrMicroRepository(19200);
 SimProgMemRepository simProgMemRepository;
-
-
-//SoftwareSerialRepository softwareSerialRepository2(8, 7, 19200);
-SoftwareSerialRepository softwareSerialRepository1(10, 9, 19200);
-
-
-
-
+SoftwareSerialRepository softwareSerialRepository(10, 9, 19200);
 
 // the setup function runs once when you press reset or power the board
 void setup() {
@@ -45,75 +31,64 @@ void setup() {
 
 	listOfPortsForSimModule[0].direction = DigitalPort::PortDirection::output;
 
-	/*listOfSimModuleDevice[0] = new SimModuleDevice("Sim01", listOfPortsForSimModule, 1);
-
-	listOfSimModuleDevice[0]->init("+39", "3202445649;");*/
-
 	simModuleDevice = SimModuleDevice("Sim01", listOfPortsForSimModule, 1);
 
 	simModuleDevice.init("+39", "3202445649;");
 
-	//simModuleActivity1 = new SimModuleActivity(softwareSerialRepository1, avrMicroRepository, listOfSimModuleDevice, 1);
+	simModuleActivity = SimModuleActivity(softwareSerialRepository, simProgMemRepository, avrMicroRepository, simModuleDevice);
 
-	simModuleActivity1 = SimModuleActivity(softwareSerialRepository1, simProgMemRepository, avrMicroRepository, simModuleDevice);
-
-	simModuleActivity1.enableSmsIncoming();
-
-
+	simModuleActivity.enableSmsIncoming();
 }
 // the loop function runs over and over again until power down or reset
 void loop() {
 	Serial.print(F("start free ram : ")); Serial.println(avrMicroRepository.getFreeRam());
-	/*callTest();
-	delay(10000);
-	receiveSmsTest();*/
 
-	receiveSmsTest();
-
+	checkIncomingSms();
 }
 
-void callTest()
+void makePhoneCall()
 {
-	int bl = simModuleActivity1._simModuleRepository->get_SS_MAX_RX_BUFF();
+	int bl = simModuleActivity._simModuleRepository->get_SS_MAX_RX_BUFF();
 
 	char buffer[bl];
 
-	simModuleActivity1.makeCall(buffer, bl);
+	simModuleActivity.makeCall(buffer, bl);
 
 	Serial.println(buffer);
 }
 
-void receiveSmsTest()
+void checkIncomingSms()
 {
-	if (simModuleActivity1.getNumberOfSmsReceived() == 0)
+	if (simModuleActivity.getNumberOfSmsReceived() == 0)
 	{
 		Serial.println(F("no message"));
+
 		return;
 	}
 
-	int bl = simModuleActivity1._simModuleRepository->get_SS_MAX_RX_BUFF();
+	int bl = simModuleActivity._simModuleRepository->get_SS_MAX_RX_BUFF();
 
 	char response[bl];
 
 	for (int i = 0; i < 10; i++)
 	{
-		simModuleActivity1.getSmsByIndex(i);
+		simModuleActivity.getSmsByIndex(i);
 
-		if (simModuleActivity1.getSmsResponse(response, bl))
+		if (simModuleActivity.getSmsResponse(response, bl))
 		{
 			Serial.println(response);
 
-			if (simModuleActivity1.isCallerAuthorized(response, "+393202445649"))
+			if (simModuleActivity.isCallerAuthorized(response, "+393202445649"))
 			{
 				Serial.println(F("caller is authorized"));
 
-				if (simModuleActivity1.isSmsOnBuffer(response, 0,5))
+				if (simModuleActivity.isSmsOnBuffer(response, 0,5))
 				{
 					Serial.println(F("do somethink for 0 command"));
-					//callTest();
+					makePhoneCall();
 				}
 			}
-			simModuleActivity1.deleteSmsByIndex(i);
+			simModuleActivity.deleteSmsByIndex(i);
 		}
 	}
 }
