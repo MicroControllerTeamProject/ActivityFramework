@@ -21,7 +21,7 @@ SimProgMemRepository simProgMemRepository;
 SoftwareSerialRepository softwareSerialRepository(10, 9, 19200);
 
 // the setup function runs once when you press reset or power the board
-//from lsgsoftware
+//from lsgsoftware 2
 
 void setup() {
 
