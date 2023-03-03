@@ -11,21 +11,20 @@
 /// <param name="avrMicroRepository"></param>
 /// <param name="listOfSimModuleDevice"></param>
 /// <param name="simModuleDevicesNumber"></param>
-SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleRepository,
-	AvrMicroRepository& avrMicroRepository, SimModuleDevice** listOfSimModuleDevice,
-	uint8_t simModuleDevicesNumber) : DeviceActivity((AvrMicroRepository&)avrMicroRepository, (DigitalPortSensor**)listOfSimModuleDevice, simModuleDevicesNumber) {
-	this->avrMicroRepository = &avrMicroRepository;
-	this->_simModuleRepository = &simModuleRepository;
-	this->_listOfSimModuleDevice = listOfSimModuleDevice;
-	this->_simModuleDevicesNumber = simModuleDevicesNumber;
-}
+//SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleRepository,
+//	AvrMicroRepository& avrMicroRepository, SimModuleDevice** listOfSimModuleDevice,
+//	uint8_t simModuleDevicesNumber) : DeviceActivity((AvrMicroRepository&)avrMicroRepository, (DigitalPortSensor**)listOfSimModuleDevice, simModuleDevicesNumber) {
+//	this->avrMicroRepository = &avrMicroRepository;
+//	this->_simModuleRepository = &simModuleRepository;
+//	this->_simModuleDevice = listOfSimModuleDevice;
+//	this->_simModuleDevicesNumber = simModuleDevicesNumber;
+//}
 
-SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleRepository, SimProgMemRepository& simProgMemRepository, AvrMicroRepository& avrMicroRepository, SimModuleDevice* simModuleDevice) : DeviceActivity((AvrMicroRepository&)avrMicroRepository, (DigitalPortSensor*)simModuleDevice)
+SimModuleActivity::SimModuleActivity(InterfaceSerialRepository& simModuleRepository, SimProgMemRepository& simProgMemRepository, AvrMicroRepository& avrMicroRepository, SimModuleDevice& simModuleDevice) : DeviceActivity((AvrMicroRepository&)avrMicroRepository, (DigitalPortSensor)simModuleDevice)
 {
 	this->avrMicroRepository = &avrMicroRepository;
 	this->_simModuleRepository = &simModuleRepository;
-	this->_listOfSimModuleDevice = new SimModuleDevice * [1];
-	this->_listOfSimModuleDevice[0] = simModuleDevice;
+	this->_simModuleDevice = &simModuleDevice;
 	this->_simProgMemRepository = &simProgMemRepository;
 }
 
@@ -40,8 +39,8 @@ void SimModuleActivity::makeCall(char buffer[], uint8_t bufferLenght)
 	char atdCommand[20];
 	this->_simProgMemRepository->getAtCommand(93, atdCommand, 20);
 	this->_simModuleRepository->print_m(atdCommand,false);
-	this->_simModuleRepository->print_m(this->_listOfSimModuleDevice[0]->getPrefixNumber(),false);
-	this->_simModuleRepository->print_m(this->_listOfSimModuleDevice[0]->getPhoneNumber(), true);
+	this->_simModuleRepository->print_m(this->_simModuleDevice->getPrefixNumber(),false);
+	this->_simModuleRepository->print_m(this->_simModuleDevice->getPhoneNumber(), true);
 
 	this->avrMicroRepository->delaym(5000);
 
@@ -91,23 +90,22 @@ bool SimModuleActivity::setIsDeviceTurnedOff(bool isTurnedOff, char* deviceUid)
 	if (isTurnedOff)
 	{
 
-		for (int i = 0; i < this->_simModuleDevicesNumber; i++)
-		{
-
-			if (strcmp(this->_listOfSimModuleDevice[i]->getUid(), deviceUid) == 0)
+	/*	for (int i = 0; i < this->_simModuleDevicesNumber; i++)
+		{*/
+			if (strcmp(this->_simModuleDevice->getUid(), deviceUid) == 0)
 			{
-				for (int ii = 0; ii < this->_listOfSimModuleDevice[i]->getDigitalPortsNumber(); ii++)
+				for (int ii = 0; ii < this->_simModuleDevice->getDigitalPortsNumber(); ii++)
 				{
-					if (strcmp(this->_listOfSimModuleDevice[i]->getAllDigitalPorts()[ii]->getUid(), "T") == 0)
+					if (strcmp(this->_simModuleDevice->getAllDigitalPorts()[ii]->getUid(), "T") == 0)
 					{
-						this->_listOfSimModuleDevice[i]->setEnableDeviceStatus(true);
+						this->_simModuleDevice->setEnableDeviceStatus(true);
 
-						//this->_avrMicroRepository->digitalWrite_m(this->_listOfSimModuleDevice[i]->getAllDigitalPorts()[ii]->getPin(),)
+						//this->_avrMicroRepository->digitalWrite_m(this->_simModuleDevice[i]->getAllDigitalPorts()[ii]->getPin(),)
 						return true;
 					}
 				}
 			}
-		}
+		//}
 	}
 	return false;
 }

@@ -5,14 +5,24 @@
 #include <Arduino.h>
 #endif
 
-DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, DigitalPortSensor** listOfDigitalPortSensors, uint8_t digitalPortSensorsNumber)
+//DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, DigitalPortSensor** listOfDigitalPortSensors, uint8_t digitalPortSensorsNumber)
+//{
+//	this->avrMicroRepository = &avrMicroRepository;
+//	this->_digitalPortSensor = listOfDigitalPortSensors;
+//	this->_digitalPortSensorNumber = digitalPortSensorsNumber;
+//	initializeDigitalPorts();
+//
+//}
+
+DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, DigitalPortSensor digitalPortSensor)
 {
 	this->avrMicroRepository = &avrMicroRepository;
-	this->_listOfDigitalPortSensors = listOfDigitalPortSensors;
-	this->_digitalPortSensorNumber = digitalPortSensorsNumber;
+	this->_digitalPortSensor = &digitalPortSensor;
+	this->_digitalPortSensorNumber = 1;
 	initializeDigitalPorts();
-
 }
+
+
 
 DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, AnalogPortSensor** listOfAnalogPortSensor, float vref, commonsLayer::analogRefMode mode, uint8_t analogPortSensorsNumber)
 {
@@ -23,12 +33,7 @@ DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, AnalogPor
 	this->avrMicroRepository = &avrMicroRepository;
 }
 
-DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, DigitalPortSensor* digitalPortSensor)
-{
-	DigitalPortSensor* listOfAnalogPortSensor[1]{};
-	listOfAnalogPortSensor[0] = new DigitalPortSensor(*digitalPortSensor);
-	DeviceActivity(avrMicroRepository, listOfAnalogPortSensor, 1);
-}
+
 
 DeviceActivity::DeviceActivity(AvrMicroRepository& avrMicroRepository, AnalogPortSensor* analogPortSensor, float _vref, commonsLayer::analogRefMode mode)
 {
@@ -39,13 +44,13 @@ DeviceActivity::DeviceActivity() {
 
 void DeviceActivity::initializeDigitalPorts()
 {
-	for (int ii = 0; ii < this->_digitalPortSensorNumber; ii++) {
-		DigitalPortSensor* digitalPortSensor = this->_listOfDigitalPortSensors[ii];
-		if (digitalPortSensor != nullptr)
+	/*for (int ii = 0; ii < this->_digitalPortSensorNumber; ii++) {
+		DigitalPortSensor* digitalPortSensor = this->_digitalPortSensor[ii];*/
+		if (this->_digitalPortSensor != nullptr)
 		{
-			for (int i = 0; i < digitalPortSensor->getDigitalPortsNumber(); i++)
+			for (int i = 0; i < this->_digitalPortSensor->getDigitalPortsNumber(); i++)
 			{
-				DigitalPort* digitalPort = digitalPortSensor->getAllDigitalPorts()[i];
+				DigitalPort* digitalPort = this->_digitalPortSensor->getAllDigitalPorts()[i];
 				if (digitalPort != nullptr)
 				{
 					if (digitalPort->direction == DigitalPort::output)
@@ -68,7 +73,7 @@ void DeviceActivity::initializeDigitalPorts()
 			}
 		}
 
-	}
+	//}
 
 	//for (int i = 0; i < this->_digitalPortsNumber; i++)
 	//{
@@ -198,12 +203,12 @@ void DeviceActivity::initializeDigitalPorts()
 bool DeviceActivity::isDigitalPortOnAlarm(char* sensorUid)
 {
 
-	for (int ii = 0; ii < this->_digitalPortSensorNumber; ii++) {
-		DigitalPortSensor* digitalPortSensor = this->_listOfDigitalPortSensors[ii];
-		if (digitalPortSensor != nullptr && (strcmp(sensorUid, digitalPortSensor->getUid()) == 0))
+	/*for (int ii = 0; ii < this->_digitalPortSensorNumber; ii++) {
+		DigitalPortSensor* digitalPortSensor = this->_digitalPortSensor[ii];*/
+		if (this->_digitalPortSensor != nullptr && (strcmp(sensorUid, this->_digitalPortSensor->getUid()) == 0))
 		{
 
-			DigitalPort* digitalPort = digitalPortSensor->getAllDigitalPorts()[0];
+			DigitalPort* digitalPort = this->_digitalPortSensor->getAllDigitalPorts()[0];
 			if (digitalPort != nullptr)
 			{
 				digitalPort->isOnError = false;
@@ -240,7 +245,7 @@ bool DeviceActivity::isDigitalPortOnAlarm(char* sensorUid)
 			//	}
 			//}
 		}
-	}
+	//}
 	return false;
 }
 

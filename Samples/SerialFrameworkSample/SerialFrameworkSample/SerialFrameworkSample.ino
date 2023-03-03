@@ -20,12 +20,9 @@
 
 //const char StringPtr[] = "string0";
 
-
-
-//SimModuleDevice* listOfSimModuleDevice[1];
+SimModuleDevice simModuleDevice;
 DigitalPort* listOfPortsForSimModule[1];
 SimModuleActivity simModuleActivity1;
-//SimModuleActivity* simModuleActivity2;
 AvrMicroRepository  avrMicroRepository(19200);
 SimProgMemRepository simProgMemRepository;
 
@@ -34,7 +31,7 @@ SimProgMemRepository simProgMemRepository;
 SoftwareSerialRepository softwareSerialRepository1(10, 9, 19200);
 
 
-SimModuleDevice* simModuleDevice;
+
 
 
 // the setup function runs once when you press reset or power the board
@@ -52,9 +49,9 @@ void setup() {
 
 	listOfSimModuleDevice[0]->init("+39", "3202445649;");*/
 
-	simModuleDevice = new SimModuleDevice("Sim01", listOfPortsForSimModule, 1);
+	simModuleDevice = SimModuleDevice("Sim01", listOfPortsForSimModule, 1);
 
-	simModuleDevice->init("+39", "3202445649;");
+	simModuleDevice.init("+39", "3202445649;");
 
 	//simModuleActivity1 = new SimModuleActivity(softwareSerialRepository1, avrMicroRepository, listOfSimModuleDevice, 1);
 
