@@ -21,7 +21,7 @@
 //const char StringPtr[] = "string0";
 
 SimModuleDevice simModuleDevice;
-DigitalPort* listOfPortsForSimModule[1];
+DigitalPort listOfPortsForSimModule[1];
 SimModuleActivity simModuleActivity1;
 AvrMicroRepository  avrMicroRepository(19200);
 SimProgMemRepository simProgMemRepository;
@@ -41,9 +41,9 @@ void setup() {
 
 	Serial.println(F("RESTART---------------------------------------------"));
 
-	listOfPortsForSimModule[0] = new DigitalPort("T", 5);
+	listOfPortsForSimModule[0] = DigitalPort("T", 5);
 
-	listOfPortsForSimModule[0]->direction = DigitalPort::PortDirection::output;
+	listOfPortsForSimModule[0].direction = DigitalPort::PortDirection::output;
 
 	/*listOfSimModuleDevice[0] = new SimModuleDevice("Sim01", listOfPortsForSimModule, 1);
 

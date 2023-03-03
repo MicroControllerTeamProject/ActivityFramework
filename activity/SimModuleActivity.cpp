@@ -96,7 +96,7 @@ bool SimModuleActivity::setIsDeviceTurnedOff(bool isTurnedOff, char* deviceUid)
 			{
 				for (int ii = 0; ii < this->_simModuleDevice->getDigitalPortsNumber(); ii++)
 				{
-					if (strcmp(this->_simModuleDevice->getAllDigitalPorts()[ii]->getUid(), "T") == 0)
+					if (strcmp(this->_simModuleDevice->getAllDigitalPorts()[ii].getUid(), "T") == 0)
 					{
 						this->_simModuleDevice->setEnableDeviceStatus(true);
 

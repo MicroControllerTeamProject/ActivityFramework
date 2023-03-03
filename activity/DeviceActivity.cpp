@@ -50,25 +50,25 @@ void DeviceActivity::initializeDigitalPorts()
 		{
 			for (int i = 0; i < this->_digitalPortSensor->getDigitalPortsNumber(); i++)
 			{
-				DigitalPort* digitalPort = this->_digitalPortSensor->getAllDigitalPorts()[i];
-				if (digitalPort != nullptr)
-				{
-					if (digitalPort->direction == DigitalPort::output)
+				DigitalPort digitalPort = this->_digitalPortSensor->getAllDigitalPorts()[i];
+				/*if (digitalPort != nullptr)
+				{*/
+					if (digitalPort.direction == DigitalPort::output)
 					{
-						this->avrMicroRepository->pinMode_m(digitalPort->getPin(), DigitalPort::output/*OUTPUT*/);
+						this->avrMicroRepository->pinMode_m(digitalPort.getPin(), DigitalPort::output/*OUTPUT*/);
 					}
 					else
 					{
-						if (digitalPort->isOnPullUp) {
-							this->avrMicroRepository->pinMode_m(digitalPort->getPin(), (uint8_t)2/*INPUT_PULLUP*/);
+						if (digitalPort.isOnPullUp) {
+							this->avrMicroRepository->pinMode_m(digitalPort.getPin(), (uint8_t)2/*INPUT_PULLUP*/);
 						}
 						else
 						{
-							this->avrMicroRepository->pinMode_m(digitalPort->getPin(), (uint8_t)0/*INPUT*/);
+							this->avrMicroRepository->pinMode_m(digitalPort.getPin(), (uint8_t)0/*INPUT*/);
 						}
 					}
 
-				}
+				//}
 
 			}
 		}
@@ -208,22 +208,22 @@ bool DeviceActivity::isDigitalPortOnAlarm(char* sensorUid)
 		if (this->_digitalPortSensor != nullptr && (strcmp(sensorUid, this->_digitalPortSensor->getUid()) == 0))
 		{
 
-			DigitalPort* digitalPort = this->_digitalPortSensor->getAllDigitalPorts()[0];
-			if (digitalPort != nullptr)
-			{
-				digitalPort->isOnError = false;
-				if (digitalPort->isEnable && (digitalPort->direction == DigitalPort::input))
+			DigitalPort digitalPort = this->_digitalPortSensor->getAllDigitalPorts()[0];
+			/*if (digitalPort != nullptr)
+			{*/
+				digitalPort.isOnError = false;
+				if (digitalPort.isEnable && (digitalPort.direction == DigitalPort::input))
 				{
-					if (digitalPort->alarmTriggerOn == DigitalPort::AlarmOn::low && this->avrMicroRepository->digitalReadm(digitalPort->getPin()) == 0/*LOW*/)
+					if (digitalPort.alarmTriggerOn == DigitalPort::AlarmOn::low && this->avrMicroRepository->digitalReadm(digitalPort.getPin()) == 0/*LOW*/)
 					{
 						return true;
 					}
-					if (digitalPort->alarmTriggerOn == DigitalPort::AlarmOn::high && this->avrMicroRepository->digitalReadm(digitalPort->getPin()) == 1/*HIGH*/)
+					if (digitalPort.alarmTriggerOn == DigitalPort::AlarmOn::high && this->avrMicroRepository->digitalReadm(digitalPort.getPin()) == 1/*HIGH*/)
 					{
 						return true;
 					}
 				}
-			}
+			//}
 			//Logic on multi ports
 			//for (int i = 0; i < digitalPortSensor->getDigitalPortsNumber(); i++)
 			//{

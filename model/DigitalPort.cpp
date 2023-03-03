@@ -8,6 +8,10 @@ DigitalPort::DigitalPort(char* uid, uint8_t pin)
 	this->_pin = pin;
 }
 
+DigitalPort::DigitalPort()
+{
+}
+
 char* DigitalPort::getUid()
 {
 	return _uid;

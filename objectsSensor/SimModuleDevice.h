@@ -4,7 +4,7 @@
 class SimModuleDevice : public DigitalPortSensor
 {
 public:
-	SimModuleDevice(char* uid, DigitalPort** listOfDigitalPorts, uint8_t digitalPortsNumbers);
+	SimModuleDevice(char* uid, DigitalPort* listOfDigitalPorts, uint8_t digitalPortsNumbers);
 	SimModuleDevice();
 	void init(char* prefixNumber, char* phoneNumber);
 
