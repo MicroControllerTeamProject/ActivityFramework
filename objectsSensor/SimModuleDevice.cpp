@@ -1,6 +1,6 @@
 #include "SimModuleDevice.h"
 
-SimModuleDevice::SimModuleDevice(char* uid, DigitalPort** listOfDigitalPorts, uint8_t digitalPortsNumbers) : DigitalPortSensor(uid, listOfDigitalPorts, digitalPortsNumbers){
+SimModuleDevice::SimModuleDevice(char* uid, DigitalPort* listOfDigitalPorts, uint8_t digitalPortsNumbers) : DigitalPortSensor(uid, listOfDigitalPorts, digitalPortsNumbers){
 }
 
 SimModuleDevice::SimModuleDevice()

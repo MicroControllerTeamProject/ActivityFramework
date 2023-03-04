@@ -30,17 +30,17 @@ namespace SerialFrameworkSampleTest
 			Mock<AvrMicroRepository> mockedAvrMicroRepository;
 			AvrMicroRepository& avrMicroRepository = mockedAvrMicroRepository.get();
 
-			DigitalPort* listOfPortsForSimModule[1];
+			DigitalPort listOfPortsForSimModule[1];
 
-			listOfPortsForSimModule[0] = new DigitalPort("T", 5);
+			listOfPortsForSimModule[0] = DigitalPort("T", 5);
 
-			listOfPortsForSimModule[0]->direction = DigitalPort::PortDirection::output;
+			listOfPortsForSimModule[0].direction = DigitalPort::PortDirection::output;
 
-			SimModuleDevice* simModuleDevice;
+			SimModuleDevice simModuleDevice;
 
-			simModuleDevice = new SimModuleDevice("Sim01", listOfPortsForSimModule, 1);
+			simModuleDevice = SimModuleDevice("Sim01", listOfPortsForSimModule,1);
 
-			simModuleDevice->init("+39", "3202445649;");
+			simModuleDevice.init("+39", "3202445649;");
 
 			//present in the constructor
 			When(Method(mockedSoftwareSerialRepository, begin_m)).AlwaysReturn();

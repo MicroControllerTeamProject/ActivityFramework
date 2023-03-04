@@ -11,8 +11,8 @@
 class SimModuleActivity : public DeviceActivity
 {
 public:
-	SimModuleActivity(InterfaceSerialRepository& simModuleRepository, AvrMicroRepository& avrMicroRepository, SimModuleDevice** listOfSimModuleDevice, uint8_t simModuleDevicesNumber);
-	SimModuleActivity(InterfaceSerialRepository& simModuleRepository, SimProgMemRepository& simProgMemRepository,  AvrMicroRepository& avrMicroRepository, SimModuleDevice* simModuleDevice);
+	/*SimModuleActivity(InterfaceSerialRepository& simModuleRepository, AvrMicroRepository& avrMicroRepository, SimModuleDevice** listOfSimModuleDevice, uint8_t simModuleDevicesNumber);*/
+	SimModuleActivity(InterfaceSerialRepository& simModuleRepository, SimProgMemRepository& simProgMemRepository,  AvrMicroRepository& avrMicroRepository, SimModuleDevice& simModuleDevice);
 	SimModuleActivity();
 	void makeCall(char buffer[], uint8_t bufferLenght);
 	/*void enableIncomingSMS();*/
@@ -25,7 +25,7 @@ public:
 	bool setIsDeviceTurnedOff(bool isTurnedOff, char* deviceUid);
 	bool getIsDeviceTurnedOff();
 	uint8_t _simModuleDevicesNumber = 0;
-	SimModuleDevice** _listOfSimModuleDevice = nullptr;
+	SimModuleDevice* _simModuleDevice = nullptr;
 	InterfaceSerialRepository* _simModuleRepository = nullptr;
 	SimProgMemRepository* _simProgMemRepository = nullptr;
 	/*AvrMicroRepository* _avrMicroRepository = nullptr;*/

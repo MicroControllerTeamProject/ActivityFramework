@@ -15,6 +15,7 @@ public:
         output
     };
     DigitalPort(char* uid, uint8_t pin);
+    DigitalPort();
     bool isEnable = true;
     bool	isOnError = false;
     PortDirection direction = PortDirection::output;

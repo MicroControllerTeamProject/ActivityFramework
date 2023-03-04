@@ -7,3 +7,6 @@ Samples/SerialFrameworkSample/SerialFrameworkSample_Test/x64/
 Samples/SerialFrameworkSample/SerialFrameworkSample/__vm/
 Samples/x64/
 
+Samples/SerialFrameworkSample/SerialFrameworkSample_Test/SerialFrameworkSample_Test.vcxproj.user
+Samples/SerialFrameworkSample/SerialFrameworkSample_Test/Debug/
+Samples/SerialFrameworkSample/SerialFrameworkSample_Test/Release/
