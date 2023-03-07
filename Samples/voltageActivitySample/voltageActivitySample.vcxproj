@@ -99,6 +99,8 @@
     <ProjectCapability Include="VisualMicro" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\activity\DeviceActivity.h" />
+    <ClInclude Include="..\..\activity\VoltageActivity.h" />
     <ClInclude Include="__vm\.voltageActivitySample.vsarduino.h" />
   </ItemGroup>
   <PropertyGroup>
@@ -111,7 +113,7 @@
     <ValidateArchitecture>false</ValidateArchitecture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)..\..\..\..\..\\Repos\\MicroControllerTeamProject\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\core;$(ProjectDir)..\..\..\..\..\\Repos\\MicroControllerTeamProject\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\variants\standard;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include-fixed;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\avr\include;$(ProjectDir)..\..\activity;$(ProjectDir)..\..\commons;$(ProjectDir)..\..\model;$(ProjectDir)..\..\objectsSensor;$(ProjectDir)..\..\repository</IncludePath>
+    <IncludePath>$(ProjectDir)..\voltageActivitySample;$(ProjectDir)..\..\..\..\..\\Repos\\MicroControllerTeamProject\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\core;$(ProjectDir)..\..\..\..\..\\Repos\\MicroControllerTeamProject\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\variants\standard;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include-fixed;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\avr\include;$(ProjectDir)..\..\activity;$(ProjectDir)..\..\commons;$(ProjectDir)..\..\model;$(ProjectDir)..\..\objectsSensor;$(ProjectDir)..\..\repository</IncludePath>
     <RemoteCCompileToolExe>$(ProjectDir)..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</RemoteCCompileToolExe>
     <RemoteCppCompileToolExe>$(ProjectDir)..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</RemoteCppCompileToolExe>
     <ValidateArchitecture>false</ValidateArchitecture>
@@ -156,7 +158,7 @@
       <SharedLibrarySearchPath>%(SharedLibrarySearchPath)</SharedLibrarySearchPath>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\\Repos\\MicroControllerTeamProject\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\core;$(ProjectDir)..\..\..\..\..\\Repos\\MicroControllerTeamProject\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\variants\standard;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include-fixed;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\avr\include;$(ProjectDir)..\..\activity;$(ProjectDir)..\..\commons;$(ProjectDir)..\..\model;$(ProjectDir)..\..\objectsSensor;$(ProjectDir)..\..\repository;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\voltageActivitySample;$(ProjectDir)..\..\..\..\..\\Repos\\MicroControllerTeamProject\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\core;$(ProjectDir)..\..\..\..\..\\Repos\\MicroControllerTeamProject\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\variants\standard;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include-fixed;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\avr\include;$(ProjectDir)..\..\activity;$(ProjectDir)..\..\commons;$(ProjectDir)..\..\model;$(ProjectDir)..\..\objectsSensor;$(ProjectDir)..\..\repository;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <GccToolChain>$(ProjectDir)..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</GccToolChain>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <CLanguageStandard>gnu11</CLanguageStandard>

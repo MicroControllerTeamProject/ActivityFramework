@@ -5,7 +5,7 @@
 class VoltageActivity : public DeviceActivity
 {
 public:
-	VoltageActivity(AvrMicroRepository& avrMicroRepository, AnalogPortSensor** _listOfAnalogPortSensor, float vref, commonsLayer::analogRefMode mode, uint8_t analogPortSensorsNumber);
+	VoltageActivity(AvrMicroRepository& avrMicroRepository, AnalogPortSensor* analogPortSensor, float vref, commonsLayer::analogRefMode mode);
 	bool isVoltageOutOfRange(char* portName);
 	char* getGrafBarLevel(char* portName, float minValue, float maxValue, float chargeVoltageValue);
 	float  getVoltage(char* portName);

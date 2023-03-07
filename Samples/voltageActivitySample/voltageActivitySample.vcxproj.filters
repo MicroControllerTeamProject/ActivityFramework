@@ -47,5 +47,11 @@
     <ClInclude Include="__vm\.voltageActivitySample.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\activity\VoltageActivity.h">
+      <Filter>activityFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\activity\DeviceActivity.h">
+      <Filter>activityFramework</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
