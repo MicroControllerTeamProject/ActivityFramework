@@ -6,6 +6,7 @@ class AnalogPortSensor
 {
 public:
 	AnalogPortSensor(char* uid,AnalogPort* listOfAnalogPorts, uint8_t analogPortsNumbers);
+	AnalogPortSensor();
 	AnalogPort* getAllAnalogPorts();
 	uint8_t getAnalogPortsNumber();
 	void setUid(char* uid);

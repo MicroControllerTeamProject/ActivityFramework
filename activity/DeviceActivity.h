@@ -25,13 +25,13 @@ public:
 	commonsLayer::analogRefMode vrefMode = commonsLayer::analogRefMode::DEFAULT_m;
 	float _vref = 5;
 	
-	float getAnalogPortVrefVoltage(char* portName);
+	float getAnalogPortVrefVoltage(char* analogPortUid);
 private:
 	
 protected:
 	AvrMicroRepository* avrMicroRepository = nullptr;
 	bool isDigitalPortOnAlarm();
-	bool isAnalogPortOnAlarm(char* portName);
+	bool isAnalogPortOnAlarm(char* analogPortUid);
 	DigitalPortSensor* _digitalPortSensor = nullptr;
 	AnalogPortSensor* _analogPortSensor = nullptr;
 };

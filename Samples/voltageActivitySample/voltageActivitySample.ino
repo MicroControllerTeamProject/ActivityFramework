@@ -15,7 +15,7 @@ AnalogPortSensor analogSensor;
 VoltageActivity batteryVoltageActivity;
 
 void setup() {
-	listOfBatteryAnalogPorts[0] =  AnalogPort("BA0", A0);
+	listOfBatteryAnalogPorts[0] =  AnalogPort("BA0", A1);
 	listOfBatteryAnalogPorts[0].isEnable = true;
 	listOfBatteryAnalogPorts[0].maxVoltageAlarmValueIn = 4.30f;
 	listOfBatteryAnalogPorts[0].minVoltageAlarmValueIn = 3.25f;
@@ -25,11 +25,11 @@ void setup() {
 
 // the loop function runs over and over again until power down or reset
 void loop() {
-	Serial.print("voltage : "); Serial.println(batteryVoltageActivity.getVoltage("SB01"));
-	Serial.print("graph : "); Serial.println(batteryVoltageActivity.getGrafBarLevel("SB01",3.30,3.80,4.30));
-	/*if (batteryVoltageActivity->isVoltageOutOfRange("SB01"))
+	Serial.print("voltage : "); Serial.println(batteryVoltageActivity.getVoltage("BA0"));
+	Serial.print("graph : "); Serial.println(batteryVoltageActivity.getGrafBarLevel("BA0",3.30,3.80,4.30));
+	if (batteryVoltageActivity.isVoltageOutOfRange("BA0"))
 	{
 		Serial.println("problem");
-	}*/
+	}
 	delay(500);
 }

@@ -5,6 +5,7 @@ class AnalogPort
 {
 public:
 	AnalogPort(const char uid[6], const uint8_t pin);
+	AnalogPort();
 	bool	isEnable = true;
 	bool	isOnError = false;
 	uint16_t digitalValue = 0;

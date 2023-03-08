@@ -179,17 +179,17 @@ bool DeviceActivity::isDigitalPortOnAlarm()
 	return false;
 }
 
-bool DeviceActivity::isAnalogPortOnAlarm(char* sensorUid)
+bool DeviceActivity::isAnalogPortOnAlarm(char* analogPortUid)
 {
-	/*for (int ii = 0; ii < this->_analogPortsSensorNumber; ii++) {*/
 		AnalogPortSensor* analogPortSensor = this->_analogPortSensor;
+
 		if (analogPortSensor != nullptr)
 		{
 			for (int i = 0; i < analogPortSensor->getAnalogPortsNumber(); i++)
 			{
 				AnalogPort analogPort = analogPortSensor->getAllAnalogPorts()[i];
 	
-					if (analogPort.isEnable && analogPort.maxVoltageAlarmValueIn != 0)
+					if (analogPort.isEnable && analogPort.maxVoltageAlarmValueIn != 0 && (strcmp(analogPortUid, analogPort.getUid()) == 0))
 					{
 						if (this->avrMicroRepository->analogVoltageRead_m(analogPort.getPin(), this->getVref(), this->vrefMode) > analogPort.maxVoltageAlarmValueIn)
 						{
@@ -206,7 +206,7 @@ bool DeviceActivity::isAnalogPortOnAlarm(char* sensorUid)
 						}
 					}
 
-					if (analogPort.isEnable && analogPort.maxAlarmValueIn != 0)
+					if (analogPort.isEnable && analogPort.maxAlarmValueIn != 0 && (strcmp(analogPortUid, analogPort.getUid()) == 0))
 					{
 						if ((this->avrMicroRepository->analogReadm(analogPort.getPin())) > analogPort.maxAlarmValueIn)
 						{
@@ -262,7 +262,6 @@ bool DeviceActivity::isAnalogPortOnAlarm(char* sensorUid)
 			//	}
 			//}
 		}
-	//}
 	return false;
 }
 
@@ -272,7 +271,7 @@ float DeviceActivity::getAnalogPortVrefVoltage(char* analogPortUid) {
 		{
 			for (size_t i = 0; i < analogPortSensor->getAnalogPortsNumber(); i++)
 			{
-			AnalogPort analogPort = analogPortSensor->getAllAnalogPorts()[0];
+			AnalogPort analogPort = analogPortSensor->getAllAnalogPorts()[i];
 				if (analogPort.isEnable && (strcmp(analogPortUid, analogPort.getUid()) == 0))
 				{
 					return this->avrMicroRepository->analogVoltageRead_m(analogPort.getPin(), this->getVref(), this->vrefMode);

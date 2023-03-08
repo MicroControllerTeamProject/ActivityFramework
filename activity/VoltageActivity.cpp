@@ -1,12 +1,16 @@
 #include "VoltageActivity.h"
 #include "..\repository\AvrMicroRepository.h"
 
-VoltageActivity::VoltageActivity(AvrMicroRepository& avrMicroRepository,AnalogPortSensor* analogPortSensor, float vref, commonsLayer::analogRefMode mode) 
+VoltageActivity::VoltageActivity(AvrMicroRepository& avrMicroRepository,AnalogPortSensor& analogPortSensor, float vref, commonsLayer::analogRefMode mode) 
 	: DeviceActivity(avrMicroRepository, analogPortSensor, vref,mode) {
 }
 
-bool VoltageActivity::isVoltageOutOfRange(char* sensorUid) {
-	if (!(this->isAnalogPortOnAlarm(sensorUid))) return false;
+VoltageActivity::VoltageActivity()
+{
+}
+
+bool VoltageActivity::isVoltageOutOfRange(char* analogPortUid) {
+	if (!(this->isAnalogPortOnAlarm(analogPortUid))) return false;
 	return true;
 }
 

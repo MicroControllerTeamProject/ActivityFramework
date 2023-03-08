@@ -11,6 +11,10 @@ AnalogPortSensor::AnalogPortSensor(char* uid,AnalogPort* listOfAnalogPorts, uint
 	this->_uid = uid;
 }
 
+AnalogPortSensor::AnalogPortSensor()
+{
+}
+
 AnalogPort* AnalogPortSensor::getAllAnalogPorts()
 {
 	return this->_listOfAnalogPorts;
