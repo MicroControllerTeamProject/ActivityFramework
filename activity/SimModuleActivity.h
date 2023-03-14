@@ -1,8 +1,8 @@
 #pragma once
 #include "DeviceActivity.h"
-#include "..\objectsSensor\SimModuleDevice.h"
-#include "..\interfaces\InterfaceSerialRepository.h"
-#include "..\repository\SimProgMemRepository.h"
+#include "../objectsSensor/SimModuleDevice.h"
+#include "../interfaces/InterfaceSerialRepository.h"
+#include "../repository/SimProgMemRepository.h"
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>

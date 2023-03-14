@@ -24,25 +24,25 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\activity\SimModuleActivity.cpp">
+    <ClCompile Include="../../../activity/SimModuleActivity.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\objectsSensor\DigitalPortSensor.cpp">
+    <ClCompile Include="../../../objectsSensor/DigitalPortSensor.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\objectsSensor\SimModuleDevice.cpp">
+    <ClCompile Include="../../../objectsSensor/SimModuleDevice.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\activity\DeviceActivity.cpp">
+    <ClCompile Include="../../../activity/DeviceActivity.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\model\DigitalPort.cpp">
+    <ClCompile Include="../../../model/DigitalPort.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\objectsSensor\AnalogPortSensor.cpp">
+    <ClCompile Include="../../../objectsSensor/AnalogPortSensor.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\model\AnalogPort.cpp">
+    <ClCompile Include="../../../model/AnalogPort.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
   </ItemGroup>

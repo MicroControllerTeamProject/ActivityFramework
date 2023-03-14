@@ -1,11 +1,11 @@
 #pragma once
 //#include "DigitalPort.h"
-#include "..\model\AnalogPort.h"
-#include "..\model\DigitalPort.h"
-#include "..\repository\AvrMicroRepository.h"
-#include "..\commons\commonsLayer.h"
-#include "..\objectsSensor\DigitalPortSensor.h"
-#include "..\objectsSensor\AnalogPortSensor.h"
+#include "../model/AnalogPort.h"
+#include "../model/DigitalPort.h"
+#include "../repository/AvrMicroRepository.h"
+#include "../commons/commonsLayer.h"
+#include "../objectsSensor/DigitalPortSensor.h"
+#include "../objectsSensor/AnalogPortSensor.h"
 
 
 class DeviceActivity

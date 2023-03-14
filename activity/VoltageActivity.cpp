@@ -1,5 +1,5 @@
 #include "VoltageActivity.h"
-#include "..\repository\AvrMicroRepository.h"
+#include "../repository/AvrMicroRepository.h"
 
 VoltageActivity::VoltageActivity(AvrMicroRepository& avrMicroRepository,AnalogPortSensor& analogPortSensor, float vref, commonsLayer::analogRefMode mode) 
 	: DeviceActivity(avrMicroRepository, analogPortSensor, vref,mode) {

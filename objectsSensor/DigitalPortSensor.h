@@ -1,6 +1,6 @@
 #pragma once
 #include <stdint.h>
-#include "..\model\DigitalPort.h"
+#include "../model/DigitalPort.h"
 
 class DigitalPortSensor //: public IDigitalPort
 {

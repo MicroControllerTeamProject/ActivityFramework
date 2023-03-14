@@ -1,16 +1,16 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "src\extend.h"
+#include "src/extend.h"
 
-#include "\Repos\MicroControllerTeamProject\ActivityFramework\activity\SimModuleActivity.h"
-//#include "\Repos\MicroControllerTeamProject\ActivityFramework\activity\DeviceActivity.h"
-//#include "\Repos\MicroControllerTeamProject\ActivityFramework\repository\AvrMicroRepository.h"
-//#include "\Repos\MicroControllerTeamProject\ActivityFramework\model\DigitalPort.h"
-//#include "\Repos\MicroControllerTeamProject\ActivityFramework\objectsSensor\SimModuleDevice.h"
-#include "\Repos\MicroControllerTeamProject\ActivityFramework\repository\AvrMicroRepository.h"
-#include "\Repos\MicroControllerTeamProject\ActivityFramework\repository\SoftwareSerialRepository.h"
-//#include "\Repos\MicroControllerTeamProject\ActivityFramework\interfaces\InterfaceSerialRepository.h"
-#include "\Repos\MicroControllerTeamProject\ActivityFramework\repository\SimProgMemRepository.h"
+#include "/Repos/MicroControllerTeamProject/ActivityFramework/activity/SimModuleActivity.h"
+//#include "/Repos/MicroControllerTeamProject/ActivityFramework/activity/DeviceActivity.h"
+//#include "/Repos/MicroControllerTeamProject/ActivityFramework/repository/AvrMicroRepository.h"
+//#include "/Repos/MicroControllerTeamProject/ActivityFramework/model/DigitalPort.h"
+//#include "/Repos/MicroControllerTeamProject/ActivityFramework/objectsSensor/SimModuleDevice.h"
+#include "/Repos/MicroControllerTeamProject/ActivityFramework/repository/AvrMicroRepository.h"
+#include "/Repos/MicroControllerTeamProject/ActivityFramework/repository/SoftwareSerialRepository.h"
+//#include "/Repos/MicroControllerTeamProject/ActivityFramework/interfaces/InterfaceSerialRepository.h"
+#include "/Repos/MicroControllerTeamProject/ActivityFramework/repository/SimProgMemRepository.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

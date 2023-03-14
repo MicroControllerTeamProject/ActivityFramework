@@ -1,8 +1,8 @@
 #include "SimProgMemRepository.h"
 #include <avr/pgmspace.h>
 
-#include "..\externalFiles\SIM_AT_COMMADS.h"
-#include "..\externalFiles\SIM_RESPONSE_DATA.h"
+#include "../externalFiles/SIM_AT_COMMADS.h"
+#include "../externalFiles/SIM_RESPONSE_DATA.h"
 
 #include "Arduino.h"
 

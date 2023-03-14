@@ -1,6 +1,6 @@
 #pragma once
 #include "DeviceActivity.h"
-#include "..\commons\commonsLayer.h"
+#include "../commons/commonsLayer.h"
 
 class VoltageActivity : public DeviceActivity
 {

@@ -2,7 +2,7 @@
 #include <stdint.h>
 
 
-#include "..\interfaces\InterfaceSerialRepository.h"
+#include "../interfaces/InterfaceSerialRepository.h"
 
 class SimProgMemRepository
 {

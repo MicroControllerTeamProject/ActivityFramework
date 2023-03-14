@@ -1,6 +1,6 @@
 #pragma once
 #include <stdint.h>
-#include "..\model\AnalogPort.h"
+#include "../model/AnalogPort.h"
 
 class AnalogPortSensor
 {

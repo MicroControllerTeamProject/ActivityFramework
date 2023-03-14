@@ -1,5 +1,5 @@
 #pragma once
-#include"..\repository\AvrMicroRepository.h"
+#include"../repository/AvrMicroRepository.h"
 
 class DigitalPort
 {
