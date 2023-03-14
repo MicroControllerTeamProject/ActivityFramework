@@ -16,6 +16,12 @@
     <Filter Include="activityFramework">
       <UniqueIdentifier>{4b179efe-66bb-4fe1-a993-35284fcaf8b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="businessLogic">
+      <UniqueIdentifier>{ced4b312-f46d-4e68-89ce-cbc8ed30c0a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service">
+      <UniqueIdentifier>{846cd1fc-cbdb-456b-8cbd-2d8a960af6c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\arduino folders read me.txt">
@@ -23,7 +29,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SerialFrameworkSample.ino" />
+    <ClCompile Include="SimModuleActivitySample.ino" />
     <ClCompile Include="..\..\..\activity\DeviceActivity.cpp">
       <Filter>activityFramework</Filter>
     </ClCompile>
