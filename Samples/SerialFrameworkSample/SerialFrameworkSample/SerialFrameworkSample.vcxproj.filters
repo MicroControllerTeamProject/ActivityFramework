@@ -13,14 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>xml;json;txt;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="activityFramework">
-      <UniqueIdentifier>{4b179efe-66bb-4fe1-a993-35284fcaf8b2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="businessLogic">
       <UniqueIdentifier>{ced4b312-f46d-4e68-89ce-cbc8ed30c0a0}</UniqueIdentifier>
     </Filter>
     <Filter Include="service">
       <UniqueIdentifier>{846cd1fc-cbdb-456b-8cbd-2d8a960af6c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries">
+      <UniqueIdentifier>{5a2fdfec-2281-40f2-aadf-1eb7c08da99e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,79 +30,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimModuleActivitySample.ino" />
-    <ClCompile Include="..\..\..\activity\DeviceActivity.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\repository\AvrMicroRepository.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\model\DigitalPort.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\objectsSensor\DigitalPortSensor.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\activity\SimModuleActivity.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\objectsSensor\SimModuleDevice.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\repository\SimProgMemRepository.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\repository\SoftwareSerialRepository.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\objectsSensor\AnalogPortSensor.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\model\AnalogPort.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.SerialFrameworkSample.vsarduino.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\activity\DeviceActivity.h">
-      <Filter>activityFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\repository\AvrMicroRepository.h">
-      <Filter>activityFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\model\DigitalPort.h">
-      <Filter>activityFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\objectsSensor\DigitalPortSensor.h">
-      <Filter>activityFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\externalFiles\SIM_AT_COMMADS.h">
-      <Filter>activityFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\externalFiles\SIM_RESPONSE_DATA.h">
-      <Filter>activityFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\activity\SimModuleActivity.h">
-      <Filter>activityFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\objectsSensor\SimModuleDevice.h">
-      <Filter>activityFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\repository\SimProgMemRepository.h">
-      <Filter>activityFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\repository\SoftwareSerialRepository.h">
-      <Filter>activityFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\interfaces\InterfaceSerialRepository.h">
-      <Filter>activityFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\objectsSensor\AnalogPortSensor.h">
-      <Filter>activityFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\model\AnalogPort.h">
-      <Filter>activityFramework</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,15 +3,15 @@
  Created:	1/25/2023 9:54:04 AM
  Author:	luigi.santagada
 */
-#include "/Repos/MicroControllerTeamProject/ActivityFramework/activity/SimModuleActivity.h"
-#include "/Repos/MicroControllerTeamProject/ActivityFramework/activity/DeviceActivity.h"
-#include "/Repos/MicroControllerTeamProject/ActivityFramework/repository/AvrMicroRepository.h"
-#include "/Repos/MicroControllerTeamProject/ActivityFramework/model/DigitalPort.h"
-#include "/Repos/MicroControllerTeamProject/ActivityFramework/objectsSensor/SimModuleDevice.h"
-#include "/Repos/MicroControllerTeamProject/ActivityFramework/repository/AvrMicroRepository.h"
-#include "/Repos/MicroControllerTeamProject/ActivityFramework/repository/SoftwareSerialRepository.h"
-#include "/Repos/MicroControllerTeamProject/ActivityFramework/interfaces/InterfaceSerialRepository.h"
-#include "/Repos/MicroControllerTeamProject/ActivityFramework/repository/SimProgMemRepository.h"
+#include <SimModuleActivity.h>
+#include <DeviceActivity.h>
+#include <AvrMicroRepository.h>
+#include <DigitalPort.h>
+#include <SimModuleDevice.h>
+#include <AvrMicroRepository.h>
+#include <SoftwareSerialRepository.h>
+#include <InterfaceSerialRepository.h>
+#include <SimProgMemRepository.h>
 
 SimModuleDevice simModuleDevice;
 DigitalPort listOfPortsForSimModule[1];

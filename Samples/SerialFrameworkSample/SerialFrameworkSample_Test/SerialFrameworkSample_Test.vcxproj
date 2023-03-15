@@ -158,13 +158,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\activity\DeviceActivity.cpp" />
-    <ClCompile Include="..\..\..\activity\SimModuleActivity.cpp" />
-    <ClCompile Include="..\..\..\model\AnalogPort.cpp" />
-    <ClCompile Include="..\..\..\model\DigitalPort.cpp" />
-    <ClCompile Include="..\..\..\objectsSensor\AnalogPortSensor.cpp" />
-    <ClCompile Include="..\..\..\objectsSensor\DigitalPortSensor.cpp" />
-    <ClCompile Include="..\..\..\objectsSensor\SimModuleDevice.cpp" />
+    <ClCompile Include="..\..\..\AnalogPort.cpp" />
+    <ClCompile Include="..\..\..\AnalogPortSensor.cpp" />
+    <ClCompile Include="..\..\..\DeviceActivity.cpp" />
+    <ClCompile Include="..\..\..\DigitalPort.cpp" />
+    <ClCompile Include="..\..\..\DigitalPortSensor.cpp" />
+    <ClCompile Include="..\..\..\SimModuleActivity.cpp" />
+    <ClCompile Include="..\..\..\SimModuleDevice.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

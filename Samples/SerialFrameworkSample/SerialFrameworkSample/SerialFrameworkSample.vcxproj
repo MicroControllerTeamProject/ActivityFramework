@@ -81,16 +81,6 @@
     <TargetOSAndVersion>Arduino</TargetOSAndVersion>
   </PropertyGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\activity\DeviceActivity.cpp" />
-    <ClCompile Include="..\..\..\activity\SimModuleActivity.cpp" />
-    <ClCompile Include="..\..\..\model\AnalogPort.cpp" />
-    <ClCompile Include="..\..\..\model\DigitalPort.cpp" />
-    <ClCompile Include="..\..\..\objectsSensor\AnalogPortSensor.cpp" />
-    <ClCompile Include="..\..\..\objectsSensor\DigitalPortSensor.cpp" />
-    <ClCompile Include="..\..\..\objectsSensor\SimModuleDevice.cpp" />
-    <ClCompile Include="..\..\..\repository\AvrMicroRepository.cpp" />
-    <ClCompile Include="..\..\..\repository\SimProgMemRepository.cpp" />
-    <ClCompile Include="..\..\..\repository\SoftwareSerialRepository.cpp" />
     <ClCompile Include="SimModuleActivitySample.ino">
       <FileType>CppCode</FileType>
       <DeploymentContent>true</DeploymentContent>
@@ -104,19 +94,6 @@
     <ProjectCapability Include="VisualMicro" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\activity\DeviceActivity.h" />
-    <ClInclude Include="..\..\..\activity\SimModuleActivity.h" />
-    <ClInclude Include="..\..\..\externalFiles\SIM_AT_COMMADS.h" />
-    <ClInclude Include="..\..\..\externalFiles\SIM_RESPONSE_DATA.h" />
-    <ClInclude Include="..\..\..\interfaces\InterfaceSerialRepository.h" />
-    <ClInclude Include="..\..\..\model\AnalogPort.h" />
-    <ClInclude Include="..\..\..\model\DigitalPort.h" />
-    <ClInclude Include="..\..\..\objectsSensor\AnalogPortSensor.h" />
-    <ClInclude Include="..\..\..\objectsSensor\DigitalPortSensor.h" />
-    <ClInclude Include="..\..\..\objectsSensor\SimModuleDevice.h" />
-    <ClInclude Include="..\..\..\repository\AvrMicroRepository.h" />
-    <ClInclude Include="..\..\..\repository\SimProgMemRepository.h" />
-    <ClInclude Include="..\..\..\repository\SoftwareSerialRepository.h" />
     <ClInclude Include="__vm\.SerialFrameworkSample.vsarduino.h" />
   </ItemGroup>
   <PropertyGroup>
@@ -129,9 +106,9 @@
     <ValidateArchitecture>false</ValidateArchitecture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\arduino\\avr\\cores\\arduino;$(ProjectDir)..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\arduino\\avr\\variants\\standard;$(ProjectDir)..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include-fixed;$(ProjectDir)..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\avr\include;$(ProjectDir)..\..\..\activity;$(ProjectDir)..\..\..\externalFiles;$(ProjectDir)..\..\..\interfaces;$(ProjectDir)..\..\..\model;$(ProjectDir)..\..\..\objectsSensor;$(ProjectDir)..\..\..\repository</IncludePath>
-    <RemoteCCompileToolExe>$(ProjectDir)..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</RemoteCCompileToolExe>
-    <RemoteCppCompileToolExe>$(ProjectDir)..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</RemoteCppCompileToolExe>
+    <IncludePath>$(ProjectDir)..\SerialFrameworkSample;$(ProjectDir)..\..\..\..\ActivityFramework;$(ProjectDir)..\..\..\..\..\..\..\Program Files (x86)\arduino-1.8.5\hardware\arduino\avr\libraries\SoftwareSerial\src;$(ProjectDir)..\..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\arduino\\avr\\cores\\arduino;$(ProjectDir)..\..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\arduino\\avr\\variants\\standard;$(ProjectDir)..\..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include-fixed;$(ProjectDir)..\..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\avr\include;$(ProjectDir)..\..\..\..\ActivityFramework;$(ProjectDir)..\..\..\..\..\..\..\Program Files (x86)\arduino-1.8.5\hardware\arduino\avr\libraries\SoftwareSerial\src</IncludePath>
+    <RemoteCCompileToolExe>$(ProjectDir)..\..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</RemoteCCompileToolExe>
+    <RemoteCppCompileToolExe>$(ProjectDir)..\..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</RemoteCppCompileToolExe>
     <ValidateArchitecture>false</ValidateArchitecture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
@@ -166,13 +143,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\arduino\\avr\\cores\\arduino;$(ProjectDir)..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\arduino\\avr\\variants\\standard;$(ProjectDir)..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include-fixed;$(ProjectDir)..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\avr\include;$(ProjectDir)..\..\..\activity;$(ProjectDir)..\..\..\externalFiles;$(ProjectDir)..\..\..\interfaces;$(ProjectDir)..\..\..\model;$(ProjectDir)..\..\..\objectsSensor;$(ProjectDir)..\..\..\repository;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <GccToolChain>$(ProjectDir)..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</GccToolChain>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\SerialFrameworkSample;$(ProjectDir)..\..\..\..\ActivityFramework;$(ProjectDir)..\..\..\..\..\..\..\Program Files (x86)\arduino-1.8.5\hardware\arduino\avr\libraries\SoftwareSerial\src;$(ProjectDir)..\..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\arduino\\avr\\cores\\arduino;$(ProjectDir)..\..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\arduino\\avr\\variants\\standard;$(ProjectDir)..\..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include-fixed;$(ProjectDir)..\..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\avr\include;$(ProjectDir)..\..\..\..\ActivityFramework;$(ProjectDir)..\..\..\..\..\..\..\Program Files (x86)\arduino-1.8.5\hardware\arduino\avr\libraries\SoftwareSerial\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <GccToolChain>$(ProjectDir)..\..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</GccToolChain>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <CLanguageStandard>gnu11</CLanguageStandard>
       <CAdditionalWarning />
       <CppAdditionalWarning />
-      <ForcedIncludeFiles>$(ProjectDir)..\..\..\..\..\..\program files\microsoft visual studio\2022\enterprise\common7\ide\extensions\k3dw3x0e.0l3\Micro Platforms\default\vm-intelli-pre.h;$(ProjectDir)..\..\..\..\..\..\Users\luigi.santagada\AppData\Local\Temp\VMBuilds\SimModuleActivitySample\uno\Release\.vmintelli\1f1b4302ee9cd80ee0a9b4a816d38149\vm-intelli-gcc-defines.h;$(ProjectDir)..\..\..\..\..\..\program files\microsoft visual studio\2022\enterprise\common7\ide\extensions\k3dw3x0e.0l3\Micro Platforms\default\vm-intelli-post.h;$(ProjectDir)__vm\.SerialFrameworkSample.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles>$(ProjectDir)..\..\..\..\..\..\..\program files\microsoft visual studio\2022\enterprise\common7\ide\extensions\k3dw3x0e.0l3\Micro Platforms\default\vm-intelli-pre.h;$(ProjectDir)..\..\..\..\..\..\..\Users\luigi.santagada\AppData\Local\Temp\VMBuilds\SimModuleActivitySample\uno\Release\.vmintelli\1f1b4302ee9cd80ee0a9b4a816d38149\vm-intelli-gcc-defines.h;$(ProjectDir)..\..\..\..\..\..\..\program files\microsoft visual studio\2022\enterprise\common7\ide\extensions\k3dw3x0e.0l3\Micro Platforms\default\vm-intelli-post.h;$(ProjectDir)__vm\.SerialFrameworkSample.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <UndefineAllPreprocessorDefinitions>true</UndefineAllPreprocessorDefinitions>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>_VMICRO_INTELLISENSE;__AVR_atmega328p__;__AVR_ATmega328P__;__AVR_ATmega328p__;_DEBUG=1;F_CPU=16000000L;ARDUINO=10805;ARDUINO_AVR_UNO;ARDUINO_ARCH_AVR;%(PreprocessorDefinitions)</PreprocessorDefinitions>

@@ -24,25 +24,46 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="../../../activity/SimModuleActivity.cpp">
+    <ClCompile Include="..\..\..\activity\DeviceActivity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\activity\SimModuleActivity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\model\AnalogPort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\model\DigitalPort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\objectsSensor\AnalogPortSensor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\objectsSensor\DigitalPortSensor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\objectsSensor\SimModuleDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AnalogPort.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="../../../objectsSensor/DigitalPortSensor.cpp">
+    <ClCompile Include="..\..\..\AnalogPortSensor.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="../../../objectsSensor/SimModuleDevice.cpp">
+    <ClCompile Include="..\..\..\DeviceActivity.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="../../../activity/DeviceActivity.cpp">
+    <ClCompile Include="..\..\..\DigitalPort.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="../../../model/DigitalPort.cpp">
+    <ClCompile Include="..\..\..\DigitalPortSensor.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="../../../objectsSensor/AnalogPortSensor.cpp">
+    <ClCompile Include="..\..\..\SimModuleActivity.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="../../../model/AnalogPort.cpp">
+    <ClCompile Include="..\..\..\SimModuleDevice.cpp">
       <Filter>externalLibrary</Filter>
     </ClCompile>
   </ItemGroup>

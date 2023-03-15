@@ -15,6 +15,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VoltageActivity", "VoltageA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{82ABE21C-AA9F-4BCA-B43F-6E8C1A158E0F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "externalLibraries", "externalLibraries", "{956E785E-543E-4BEB-9E13-EBA2E7CC8F68}"
+	ProjectSection(SolutionItems) = preProject
+		..\VoltageActivity.cpp = ..\VoltageActivity.cpp
+		..\VoltageActivity.h = ..\VoltageActivity.h
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM

@@ -80,12 +80,6 @@
     <TargetOSAndVersion>Arduino</TargetOSAndVersion>
   </PropertyGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\MicroControllerTeamProject\ActivityFramework\activity\DeviceActivity.cpp" />
-    <ClCompile Include="..\..\..\..\MicroControllerTeamProject\ActivityFramework\activity\VoltageActivity.cpp" />
-    <ClCompile Include="..\..\..\..\MicroControllerTeamProject\ActivityFramework\commons\commonsLayer.cpp" />
-    <ClCompile Include="..\..\..\..\MicroControllerTeamProject\ActivityFramework\model\AnalogPort.cpp" />
-    <ClCompile Include="..\..\..\..\MicroControllerTeamProject\ActivityFramework\objectsSensor\AnalogPortSensor.cpp" />
-    <ClCompile Include="..\..\..\..\MicroControllerTeamProject\ActivityFramework\repository\AvrMicroRepository.cpp" />
     <ClCompile Include="voltageActivitySample.ino">
       <FileType>CppCode</FileType>
       <DeploymentContent>true</DeploymentContent>
@@ -99,8 +93,6 @@
     <ProjectCapability Include="VisualMicro" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\activity\DeviceActivity.h" />
-    <ClInclude Include="..\..\activity\VoltageActivity.h" />
     <ClInclude Include="__vm\.voltageActivitySample.vsarduino.h" />
   </ItemGroup>
   <PropertyGroup>
@@ -113,9 +105,9 @@
     <ValidateArchitecture>false</ValidateArchitecture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)..\..\..\..\..\\Repos\\MicroControllerTeamProject\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\core;$(ProjectDir)..\..\..\..\..\\Repos\\MicroControllerTeamProject\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\variants\standard;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include-fixed;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\avr\include;$(ProjectDir)..\..\activity;$(ProjectDir)..\..\commons;$(ProjectDir)..\..\model;$(ProjectDir)..\..\objectsSensor;$(ProjectDir)..\..\repository</IncludePath>
-    <RemoteCCompileToolExe>$(ProjectDir)..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</RemoteCCompileToolExe>
-    <RemoteCppCompileToolExe>$(ProjectDir)..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</RemoteCppCompileToolExe>
+    <IncludePath>$(ProjectDir)..\voltageActivitySample;$(ProjectDir)src\_micro-api\core;$(ProjectDir)src\_micro-api\variants\standard;$(ProjectDir)..\..\..\ActivityFramework;$(ProjectDir)..\..\..\..\..\..\Program Files (x86)\arduino-1.8.5\hardware\arduino\avr\libraries\SoftwareSerial\src;$(ProjectDir)..\..\..\..\..\..\\Repos\\MicroControllerTeamProject\\Libraries\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\core;$(ProjectDir)..\..\..\..\..\..\\Repos\\MicroControllerTeamProject\\Libraries\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\variants\standard;$(ProjectDir)..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include-fixed;$(ProjectDir)..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\avr\include;$(ProjectDir)..\..\..\ActivityFramework;$(ProjectDir)..\..\..\..\..\..\Program Files (x86)\arduino-1.8.5\hardware\arduino\avr\libraries\SoftwareSerial\src</IncludePath>
+    <RemoteCCompileToolExe>$(ProjectDir)..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</RemoteCCompileToolExe>
+    <RemoteCppCompileToolExe>$(ProjectDir)..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</RemoteCppCompileToolExe>
     <ValidateArchitecture>false</ValidateArchitecture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
@@ -158,13 +150,13 @@
       <SharedLibrarySearchPath>%(SharedLibrarySearchPath)</SharedLibrarySearchPath>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\\Repos\\MicroControllerTeamProject\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\core;$(ProjectDir)..\..\..\..\..\\Repos\\MicroControllerTeamProject\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\variants\standard;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include-fixed;$(ProjectDir)..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\avr\include;$(ProjectDir)..\..\activity;$(ProjectDir)..\..\commons;$(ProjectDir)..\..\model;$(ProjectDir)..\..\objectsSensor;$(ProjectDir)..\..\repository;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <GccToolChain>$(ProjectDir)..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</GccToolChain>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\voltageActivitySample;$(ProjectDir)src\_micro-api\core;$(ProjectDir)src\_micro-api\variants\standard;$(ProjectDir)..\..\..\ActivityFramework;$(ProjectDir)..\..\..\..\..\..\Program Files (x86)\arduino-1.8.5\hardware\arduino\avr\libraries\SoftwareSerial\src;$(ProjectDir)..\..\..\..\..\..\\Repos\\MicroControllerTeamProject\\Libraries\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\core;$(ProjectDir)..\..\..\..\..\..\\Repos\\MicroControllerTeamProject\\Libraries\\ActivityFramework\\Samples\\voltageActivitySample\src\_micro-api\variants\standard;$(ProjectDir)..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\lib\gcc\avr\4.9.2\include-fixed;$(ProjectDir)..\..\..\..\..\..\program files (x86)\arduino-1.8.5\hardware\tools\avr\avr\include;$(ProjectDir)..\..\..\ActivityFramework;$(ProjectDir)..\..\..\..\..\..\Program Files (x86)\arduino-1.8.5\hardware\arduino\avr\libraries\SoftwareSerial\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <GccToolChain>$(ProjectDir)..\..\..\..\..\..\\Program Files (x86)\\arduino-1.8.5\\hardware\\tools\\avr\bin\avr-g++</GccToolChain>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <CLanguageStandard>gnu11</CLanguageStandard>
       <CAdditionalWarning />
       <CppAdditionalWarning />
-      <ForcedIncludeFiles>$(ProjectDir)..\..\..\..\..\program files\microsoft visual studio\2022\enterprise\common7\ide\extensions\k3dw3x0e.0l3\Micro Platforms\default\vm-intelli-pre.h;$(ProjectDir)..\..\..\..\..\Users\luigi.santagada\AppData\Local\Temp\VMBuilds\voltageActivitySample\uno\Release\.vmintelli\de07c86cb9a7d9f04c5426a9b0b4c564\vm-intelli-gcc-defines.h;$(ProjectDir)..\..\..\..\..\program files\microsoft visual studio\2022\enterprise\common7\ide\extensions\k3dw3x0e.0l3\Micro Platforms\default\vm-intelli-post.h;$(ProjectDir)__vm\.voltageActivitySample.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles>$(ProjectDir)..\..\..\..\..\..\program files\microsoft visual studio\2022\enterprise\common7\ide\extensions\k3dw3x0e.0l3\Micro Platforms\default\vm-intelli-pre.h;$(ProjectDir)..\..\..\..\..\..\Users\luigi.santagada\AppData\Local\Temp\VMBuilds\voltageActivitySample\uno\Release\.vmintelli\dbe416d9c20010f754fdda6b2caa5124\vm-intelli-gcc-defines.h;$(ProjectDir)..\..\..\..\..\..\program files\microsoft visual studio\2022\enterprise\common7\ide\extensions\k3dw3x0e.0l3\Micro Platforms\default\vm-intelli-post.h;$(ProjectDir)__vm\.voltageActivitySample.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <UndefineAllPreprocessorDefinitions>true</UndefineAllPreprocessorDefinitions>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>_VMICRO_INTELLISENSE;__AVR_atmega328p__;__AVR_ATmega328P__;__AVR_ATmega328p__;F_CPU=16000000L;ARDUINO=10805;ARDUINO_AVR_UNO;ARDUINO_ARCH_AVR;%(PreprocessorDefinitions)</PreprocessorDefinitions>

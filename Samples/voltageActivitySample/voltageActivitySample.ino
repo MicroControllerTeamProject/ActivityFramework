@@ -3,10 +3,10 @@
  Created:	1/19/2023 11:44:53 AM
  Author:	luigi.santagada
 */
-#include "/Repos/MicroControllerTeamProject/ActivityFramework/activity/VoltageActivity.h"
-#include "/Repos/MicroControllerTeamProject/ActivityFramework/activity/DeviceActivity.h"
-#include "/Repos/MicroControllerTeamProject/ActivityFramework/repository/AvrMicroRepository.h"
-#include "/Repos/MicroControllerTeamProject/ActivityFramework/objectsSensor/AnalogPortSensor.h"
+#include <VoltageActivity.h>
+#include <DeviceActivity.h>
+#include <AvrMicroRepository.h>
+#include <AnalogPortSensor.h>
 #include <Arduino.h>
 
 AnalogPort listOfBatteryAnalogPorts[1];
