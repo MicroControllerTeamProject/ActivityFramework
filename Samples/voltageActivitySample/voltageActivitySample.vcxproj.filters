@@ -24,34 +24,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voltageActivitySample.ino" />
-    <ClCompile Include="..\..\..\..\MicroControllerTeamProject\ActivityFramework\activity\VoltageActivity.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\MicroControllerTeamProject\ActivityFramework\commons\commonsLayer.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\MicroControllerTeamProject\ActivityFramework\objectsSensor\AnalogPortSensor.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\MicroControllerTeamProject\ActivityFramework\model\AnalogPort.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\MicroControllerTeamProject\ActivityFramework\activity\DeviceActivity.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\MicroControllerTeamProject\ActivityFramework\repository\AvrMicroRepository.cpp">
-      <Filter>activityFramework</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.voltageActivitySample.vsarduino.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\activity\VoltageActivity.h">
-      <Filter>activityFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\activity\DeviceActivity.h">
-      <Filter>activityFramework</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
