@@ -16,13 +16,14 @@
             ],
             "intelliSenseMode": "gcc-x64",
             "includePath": [
+                "/home/luigi/.arduino15/packages/arduino/hardware/avr/1.8.6/libraries/**",
                 "/home/luigi/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
                 "/home/luigi/.arduino15/packages/arduino/hardware/avr/1.8.6/variants/eightanaloginputs",
                 "/home/luigi/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/lib/gcc/avr/7.3.0/include",
                 "/home/luigi/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/lib/gcc/avr/7.3.0/include-fixed",
                 "/home/luigi/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include",
                 "/home/luigi/Desktop/Repo/MicroControllerProjects/libraries/ActivityFramework/**",
-                "/home/luigi/Repo/MicroControllerProjects/**"
+                "/home/luigi/Repo/MicroControllerProjects/libraries/**"
             ],
             "forcedInclude": [
                 "/home/luigi/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino/Arduino.h"
